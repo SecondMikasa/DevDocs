@@ -5,15 +5,13 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
-import Heading from '@tiptap/extension-heading'
-import Document from '@tiptap/extension-document'
-import Paragraph from '@tiptap/extension-paragraph'
-import Text from '@tiptap/extension-text'
 import Table from '@tiptap/extension-table'
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
 import TableRow from '@tiptap/extension-table-row'
 import Image from '@tiptap/extension-image'
+
+import ImageResize from 'tiptap-extension-resize-image';
 
 const Editor = () => {
     const editor = useEditor({
@@ -30,19 +28,14 @@ const Editor = () => {
             TaskItem.configure({
                 nested: true
             }),
-            Heading.configure({
-                levels: [1, 2, 3, 4],
-            }),
-            Document,
-            Paragraph,
-            Text,
             Table.configure({
                 resizable: true,
             }),
             TableRow,
             TableHeader,
             TableCell,
-            Image
+            Image,
+            ImageResize
         ],
         content: '<p>Hello World! 🌎️</p>',
     })
