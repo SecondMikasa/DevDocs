@@ -55,67 +55,274 @@
 
     --chart-5: 27 87% 67%;
 
-    --radius: 0.5rem
-  }
-  .dark {
+    --radius: 0.5rem;
 
-    --background: 222.2 84% 4.9%;
+    /* Base HTML and global element styles*/
+    --white: #FFF;
 
-    --foreground: 210 40% 98%;
+    --black: #2E2B29;
 
-    --card: 222.2 84% 4.9%;
+    --black-contrast: #110F0E;
 
-    --card-foreground: 210 40% 98%;
+    --gray-1: rgba(61, 37, 20, 0.05);
 
-    --popover: 222.2 84% 4.9%;
+    --gray-2: rgba(61, 37, 20, 0.08);
 
-    --popover-foreground: 210 40% 98%;
+    --gray-3: rgba(61, 37, 20, 0.12);
 
-    --primary: 210 40% 98%;
+    --gray-4: rgba(53, 38, 28, 0.30);
 
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --gray-5: rgba(28, 25, 23, 0.60);
 
-    --secondary: 217.2 32.6% 17.5%;
+    --green: #22C55E;
 
-    --secondary-foreground: 210 40% 98%;
+    --purple: #6A00F5;
 
-    --muted: 217.2 32.6% 17.5%;
+    --purple-contrast: #5800CC;
 
-    --muted-foreground: 215 20.2% 65.1%;
+    --purple-light: rgba(88, 5, 255, 0.05);
 
-    --accent: 217.2 32.6% 17.5%;
+    --yellow-contrast: #FACC15;
 
-    --accent-foreground: 210 40% 98%;
+    --yellow: rgba(250, 204, 21, 0.4);
 
-    --destructive: 0 62.8% 30.6%;
+    --yellow-light: #FFFAE5;
 
-    --destructive-foreground: 210 40% 98%;
+    --red: #FF5C33;
 
-    --border: 217.2 32.6% 17.5%;
+    --red-light: #FFEBE5;
 
-    --input: 217.2 32.6% 17.5%;
-
-    --ring: 212.7 26.8% 83.9%;
-
-    --chart-1: 220 70% 50%;
-
-    --chart-2: 160 60% 45%;
-
-    --chart-3: 30 80% 55%;
-
-    --chart-4: 280 65% 60%;
-
-    --chart-5: 340 75% 55%
+    --shadow: 0px 12px 33px 0px rgba(0, 0, 0, 0.06), 0px 3.618px 9.949px 0px rgba(0, 0, 0, 0.04);
   }
 }
 
+.dark {
 
+  --background: 222.2 84% 4.9%;
+
+  --foreground: 210 40% 98%;
+
+  --card: 222.2 84% 4.9%;
+
+  --card-foreground: 210 40% 98%;
+
+  --popover: 222.2 84% 4.9%;
+
+  --popover-foreground: 210 40% 98%;
+
+  --primary: 210 40% 98%;
+
+  --primary-foreground: 222.2 47.4% 11.2%;
+
+  --secondary: 217.2 32.6% 17.5%;
+
+  --secondary-foreground: 210 40% 98%;
+
+  --muted: 217.2 32.6% 17.5%;
+
+  --muted-foreground: 215 20.2% 65.1%;
+
+  --accent: 217.2 32.6% 17.5%;
+
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 217.2 32.6% 17.5%;
+
+  --input: 217.2 32.6% 17.5%;
+
+  --ring: 212.7 26.8% 83.9%;
+
+  --chart-1: 220 70% 50%;
+
+  --chart-2: 160 60% 45%;
+
+  --chart-3: 30 80% 55%;
+
+  --chart-4: 280 65% 60%;
+
+  --chart-5: 340 75% 55%
+}
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+.tiptap {
+  :first-child {
+    margin-top: 0;
+  }
+
+  /* List styles */
+  ul,
+  ol {
+    padding: 0 1rem;
+    margin: 1.25rem 1rem 1.25rem 0.4rem;
+  }
+
+  ul li {
+    list-style-type: disc;
+
+    p {
+      margin-top: 0.25em;
+      margin-bottom: 0.25em;
+    }
+  }
+
+  ol li {
+    list-style-type: decimal;
+
+    p {
+      margin-top: 0.25em;
+      margin-bottom: 0.25em;
+    }
+  }
+
+  /* Task list specific styles */
+  ul[data-type="taskList"] {
+    list-style: none;
+    margin-left: 0;
+    padding: 0;
+
+    li {
+      align-items: flex-start;
+      display: flex;
+
+      >label {
+        flex: 0 0 auto;
+        margin-right: 0.5rem;
+        user-select: none;
+      }
+
+      >div {
+        flex: 1 1 auto;
+      }
+    }
+
+    input[type="checkbox"] {
+      cursor: pointer;
+    }
+
+    ul[data-type="taskList"] {
+      margin: 0;
+    }
+  }
+
+  /* Heading styles */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.1;
+    margin-top: 2.5rem;
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2 {
+    margin-top: 3.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-size: 1rem;
+  }
+
+  /* Table-specific styling */
+  table {
+    border-collapse: collapse;
+    margin: 0;
+    overflow: hidden;
+    table-layout: fixed;
+    width: 100%;
+
+    td,
+    th {
+      border: 1px solid var(--gray-3);
+      box-sizing: border-box;
+      min-width: 1em;
+      padding: 6px 8px;
+      position: relative;
+      vertical-align: top;
+
+      >* {
+        margin-bottom: 0;
+      }
+    }
+
+    th {
+      background-color: var(--gray-1);
+      font-weight: bold;
+      text-align: left;
+    }
+
+    .selectedCell:after {
+      background: var(--gray-2);
+      content: "";
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      pointer-events: none;
+      position: absolute;
+      z-index: 2;
+    }
+
+    .column-resize-handle {
+      background-color: var(--purple);
+      bottom: -2px;
+      pointer-events: none;
+      position: absolute;
+      right: -2px;
+      top: 0;
+      width: 4px;
+    }
+  }
+
+  .tableWrapper {
+    margin: 1.5rem 0;
+    overflow-x: auto;
+  }
+
+  &.resize-cursor {
+    cursor: ew-resize;
+    cursor: col-resize;
+  }
+
+  /* Image-specific styling */
+  img {
+    display: block;
+    height: auto;
+    margin: 1.5rem 0;
+    max-width: 100%;
+
+    &.ProseMirror-selectednode {
+      outline: 3px solid var(--purple);
+    }
   }
 }
