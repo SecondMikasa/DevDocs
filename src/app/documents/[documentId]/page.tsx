@@ -1,6 +1,7 @@
 import React from "react";
 
-import Editor from "./editor";
+import Editor from "./(components)/editor";
+import Toolbar from "./(components)/toolbar";
 
 interface DocumentsIdPageProps {
     // From Next15 it has been started to be treated as a promise
@@ -23,6 +24,7 @@ const DocumentsIdPage = ({
 
     return (
         <div className="min-h-screen bg-[#FAFBFD]">
+            <Toolbar />
             <Editor />
         </div>
     )

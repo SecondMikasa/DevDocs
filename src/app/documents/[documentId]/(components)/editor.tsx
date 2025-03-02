@@ -13,8 +13,17 @@ import Image from '@tiptap/extension-image'
 
 import ImageResize from 'tiptap-extension-resize-image';
 
+import useEditorStore from '@/store/use-editor-store'
+
 const Editor = () => {
+
+    const { setEditor } = useEditorStore()
+
     const editor = useEditor({
+        onCreate({ editor }) {
+            setEditor(editor)
+        },
+
         editorProps: {
             attributes: {
                 //TODO: Add dynamic sidebars
@@ -22,6 +31,7 @@ const Editor = () => {
                 class: "focus:outline-none print:border-0 border bg-white border-[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text"
             }
         },
+
         extensions: [
             StarterKit,
             TaskList,
@@ -37,6 +47,7 @@ const Editor = () => {
             Image,
             ImageResize
         ],
+        
         content: '<p>Hello World! 🌎️</p>',
     })
 
@@ -49,9 +60,7 @@ const Editor = () => {
                     editor={editor}
                 />
             </div>
-
         </div>
-
     )
 }
 
