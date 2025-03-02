@@ -17,6 +17,9 @@ export const getSections = (editor: any): {
     onClick: () => void;
     isActive?: boolean
 }[][] => {
+
+    const current = editor?.view.dom.getAttribute("spellcheck")
+
     return (
         [
             [
@@ -39,9 +42,10 @@ export const getSections = (editor: any): {
                     label: "Spell Check",
                     icon: SpellCheckIcon,
                     onClick: () => {
-                        const current = editor?.view.dom.getAttribute("spellcheck")
                         editor?.view.dom.setAttribute("spellcheck", current === "false" ? "true" : "false")
-                    }
+                    },
+                    //BUG: isActive not working
+                    // isActive: editor?.view.dom.setAttribute("spellcheck", current === "false" ? "true" : "false")
                 }
             ],
             [
