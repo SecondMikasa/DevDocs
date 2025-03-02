@@ -10,6 +10,7 @@ import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
 import TableRow from '@tiptap/extension-table-row'
 import Image from '@tiptap/extension-image'
+import Underline from '@tiptap/extension-underline'
 
 import ImageResize from 'tiptap-extension-resize-image';
 
@@ -24,6 +25,34 @@ const Editor = () => {
             setEditor(editor)
         },
 
+        onDestroy() {
+            setEditor(null)
+        },
+
+        onUpdate({ editor }) {
+            setEditor(editor)
+        },
+
+        onSelectionUpdate({ editor }) {
+            setEditor(editor)
+        },
+        
+        onTransaction({ editor }) {
+            setEditor(editor)
+        },
+
+        onFocus({ editor }) {
+            setEditor(editor)
+        },
+
+        onBlur({ editor }) {
+            setEditor(editor)
+        },
+
+        onContentError({ editor }) {
+            setEditor(editor)
+        },
+
         editorProps: {
             attributes: {
                 //TODO: Add dynamic sidebars
@@ -34,6 +63,7 @@ const Editor = () => {
 
         extensions: [
             StarterKit,
+            Underline,
             TaskList,
             TaskItem.configure({
                 nested: true
@@ -47,7 +77,7 @@ const Editor = () => {
             Image,
             ImageResize
         ],
-        
+
         content: '<p>Hello World! 🌎️</p>',
     })
 

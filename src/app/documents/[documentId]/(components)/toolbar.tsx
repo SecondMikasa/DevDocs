@@ -1,15 +1,33 @@
 "use client"
-import { LucideIcon, Undo2Icon } from "lucide-react"
-
 import { cn } from "@/lib/utils";
 
+import {
+    BoldIcon,
+    ItalicIcon,
+    ListTodoIcon,
+    LucideIcon,
+    MessageSquarePlusIcon,
+    PrinterIcon,
+    Redo2Icon,
+    RemoveFormattingIcon,
+    SpellCheckIcon,
+    UnderlineIcon,
+    Undo2Icon
+} from "lucide-react"
+import { Separator } from "@/components/separator";
+
+import useEditorStore from "@/store/use-editor-store";
+
 interface ToolbarButtonProps {
+    label: string;
     onClick?: () => void;
     isActive?: boolean;
     icon: LucideIcon
 }
 
+// FIXME: Add Hover Card "https://ui.shadcn.com/docs/components/hover-card"
 const ToolbarButton = ({
+    label,
     onClick,
     isActive,
     icon: Icon
@@ -31,6 +49,9 @@ const ToolbarButton = ({
 
 const Toolbar = () => {
 
+    const { editor } = useEditorStore()
+    // console.log("Toolbar Editor:", ({ editor }))
+
     const sections: {
         label: string;
         icon: LucideIcon;
@@ -41,7 +62,65 @@ const Toolbar = () => {
                 {
                     label: "Undo",
                     icon: Undo2Icon,
-                    onClick: () => console.log("Undo Clicked"),
+                    onClick: () => editor?.chain().focus().undo().run()
+                },
+                {
+                    label: "Redo",
+                    icon: Redo2Icon,
+                    onClick: () => editor?.chain().focus().redo().run()
+                },
+                {
+                    label: "Print",
+                    icon: PrinterIcon,
+                    onClick: () => window.print()
+                },
+                {
+                    label: "Spell Check",
+                    icon: SpellCheckIcon,
+                    onClick: () => {
+                        const current = editor?.view.dom.getAttribute("spellcheck")
+                        editor?.view.dom.setAttribute("spellcheck", current === "false" ? "true" : "false")
+                    }
+                }
+            ],
+            [
+                {
+                    label: "Bold",
+                    icon: BoldIcon,
+                    isActive: editor?.isActive("bold"),
+                    onClick: () => editor?.chain().focus().toggleBold().run()
+                },
+                {
+                    label: "Italic",
+                    icon: ItalicIcon,
+                    isActive: editor?.isActive("italic"),
+                    onClick: () => editor?.chain().focus().toggleItalic().run()
+                },
+                {
+                    label: "Underline",
+                    icon: UnderlineIcon,
+                    isActive: editor?.isActive("underline"),
+                    onClick: () => editor?.chain().focus().toggleUnderline().run()
+                }
+            ],
+            [
+                {
+                    label: "Comment",
+                    icon: MessageSquarePlusIcon,
+                    isActive: false,
+                    //TODO: Implement Comment feature
+                    onClick: () => console.log("Implementation in progress")
+                }, 
+                {
+                    label: "List Todo",
+                    icon: ListTodoIcon,
+                    isActive: editor?.isActive("taskList"),
+                    onClick: () => editor?.chain().focus().toggleTaskList().run()
+                },
+                {
+                    label: "Remove Formatting",
+                    icon: RemoveFormattingIcon,
+                    onClick: () => editor?.chain().focus().unsetAllMarks().run()
                 }
             ]
         ]
@@ -56,6 +135,83 @@ const Toolbar = () => {
                     />
                 ))
             }
+
+            <Separator
+                orientation="vertical"
+                className="h-6 bg-neutral-300"
+            />
+
+            {/* [ ]: Font Family */}
+
+            {/* {
+                sections[1].map((item) => (
+                    <ToolbarButton
+                        key={item.label}
+                        {...item}
+                    />
+                ))
+            } */}
+
+            <Separator
+                orientation="vertical"
+                className="h-6 bg-neutral-300"
+            />
+
+            {/* [ ]: Heading */}
+
+            {/* {
+                sections[2].map((item) => (
+                    <ToolbarButton
+                        key={item.label}
+                        {...item}
+                    />
+                ))
+            } */}
+
+            <Separator
+                orientation="vertical"
+                className="h-6 bg-neutral-300"
+            />
+
+            {/* [ ]: Font Size */}
+
+            {
+                sections[1].map((item) => (
+                    <ToolbarButton
+                        key={item.label}
+                        {...item}
+                    />
+                ))
+            }
+
+            {/* [ ]: Text Color */}
+
+            {/* [ ]: Highlight Color */}
+
+            <Separator
+                orientation="vertical"
+                className="h-6 bg-neutral-300"
+            />
+
+            {/* [ ]: Link */}
+
+            {/* [ ]: Image */}
+
+            {/* [ ]: Align */}
+
+            {/* [ ]: Line Height */}
+
+            {/* [ ]: List */}
+
+            {
+                sections[2].map((item) => (
+                    <ToolbarButton
+                        key={item.label}
+                        {...item}
+                    />
+                ))
+            }
+
         </div>
     )
 }
