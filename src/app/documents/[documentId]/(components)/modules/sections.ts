@@ -7,7 +7,9 @@ import {
     Redo2Icon,
     SpellCheckIcon,
     UnderlineIcon,
-    Undo2Icon
+    Undo2Icon,
+    ListTodoIcon,
+    RemoveFormattingIcon
 } from "lucide-react"
 
 export const getSections = (editor: any): {
@@ -74,7 +76,20 @@ export const getSections = (editor: any): {
                     isActive: false,
                     //TODO: Implement Comment feature
                     onClick: () => console.log("Implementation in progress"),
-                }
+                },
+
+                {
+                    label: "List Todo",
+                    icon: ListTodoIcon,
+                    onClick: () => editor?.chain().focus().toggleTaskList().run(),
+                    isActive: editor?.isActive("taskList"),
+                },
+                {
+                    label: "Remove Formatting",
+                    icon: RemoveFormattingIcon,
+                    onClick: () => editor?.chain().focus().unsetAllMarks().run(),
+                    isActive: editor?.isActive("taskList"),
+                },
             ]
         ]
     )

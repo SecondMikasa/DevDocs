@@ -2,7 +2,6 @@
 import {
     useEditor,
     EditorContent,
-    Editor
 } from '@tiptap/react'
 import useEditorStore from '@/store/use-editor-store'
 
@@ -19,6 +18,8 @@ import FontFamily from '@tiptap/extension-font-family'
 import TextStyle from '@tiptap/extension-text-style'
 import { Color } from '@tiptap/extension-color'
 import Highlight from '@tiptap/extension-highlight'
+import Link from '@tiptap/extension-link'
+
 import ImageResize from 'tiptap-extension-resize-image'
 
 const EditorComponent = () => {
@@ -65,7 +66,13 @@ const EditorComponent = () => {
             TableRow,
             TableHeader,
             TableCell,
-            Image.extend(ImageResize),
+            Image,
+            ImageResize,
+            Link.configure({
+                openOnClick: true,
+                autolink: true,
+                defaultProtocol: 'https'
+            })
         ],
 
         content: '<p>Hello World! 🌎️</p>',

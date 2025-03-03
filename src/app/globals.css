@@ -244,10 +244,13 @@
     font-size: 1.1rem;
   }
 
-  h4,
+  h4{
+    font-size: 1rem;
+  }
+
   h5,
   h6 {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   /* Table-specific styling */
@@ -320,6 +323,17 @@
 
     &.ProseMirror-selectednode {
       outline: 3px solid var(--purple);
+    }
+  }
+
+  /* Link styles */
+  a {
+    @apply underline;
+    color: var(--purple);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--purple-contrast);
     }
   }
 }

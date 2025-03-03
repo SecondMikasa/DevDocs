@@ -17,6 +17,8 @@ import { TextColorButton } from "./modules/text-color";
 
 import useEditorStore from "@/store/use-editor-store";
 import { HighlightColorButton } from "./modules/highlight-color";
+import { LinkButton } from "./modules/link-button";
+import { ImageButton } from "./modules/image-button";
 
 interface ToolbarButtonProps {
     label: string;
@@ -120,9 +122,13 @@ const Toolbar = () => {
                 className="h-6 bg-neutral-300"
             />
 
-            {/* [ ]: Link */}
+            {/* [x]: Link */}
 
-            {/* [ ]: Image */}
+            <LinkButton />
+
+            {/* [x]: Image */}
+
+            <ImageButton />
 
             {/* [ ]: Align */}
 
