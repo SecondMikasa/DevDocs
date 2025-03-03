@@ -1,4 +1,3 @@
-import useEditorStore from "@/store/use-editor-store";
 import {
     BoldIcon,
     ItalicIcon,
