@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { ChevronDownIcon } from "lucide-react"
 
 import { type Level } from "@tiptap/extension-heading";
+import { HeadingProps } from "@/lib/types";
 
 export const HeadingLevelButton = () => {
     const { editor } = useEditorStore()

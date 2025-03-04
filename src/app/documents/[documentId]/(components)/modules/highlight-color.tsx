@@ -28,7 +28,6 @@ export const HighlightColorButton = () => {
     }
 
     return (
-
         <HoverCard openDelay={600}>
             <HoverCardTrigger>
                 <DropdownMenu open={open} onOpenChange={setOpen}>

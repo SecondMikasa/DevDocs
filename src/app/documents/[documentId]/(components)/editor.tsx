@@ -12,7 +12,8 @@ import Table from '@tiptap/extension-table'
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
 import TableRow from '@tiptap/extension-table-row'
-import Image from '@tiptap/extension-image'
+import TextAlign from '@tiptap/extension-text-align'
+// import Image from '@tiptap/extension-image'
 import Underline from '@tiptap/extension-underline'
 import FontFamily from '@tiptap/extension-font-family'
 import TextStyle from '@tiptap/extension-text-style'
@@ -66,13 +67,17 @@ const EditorComponent = () => {
             TableRow,
             TableHeader,
             TableCell,
-            Image,
+            // Image,
             ImageResize,
             Link.configure({
                 openOnClick: true,
                 autolink: true,
                 defaultProtocol: 'https'
-            })
+            }),
+            TextAlign.configure({
+                types: ["heading", "paragraph"],
+                alignments: ['left', 'right', 'center', 'justify'],
+            }),
         ],
 
         content: '<p>Hello World! 🌎️</p>',

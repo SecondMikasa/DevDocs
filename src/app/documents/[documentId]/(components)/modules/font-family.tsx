@@ -11,6 +11,7 @@ import {
 import { cn } from "@/lib/utils";
 
 import { ChevronDownIcon } from "lucide-react"
+import { FontProps } from "@/lib/types";
 
 export const FontFamilyButton = () => {
     const { editor } = useEditorStore()
