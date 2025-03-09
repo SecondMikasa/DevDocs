@@ -44,7 +44,7 @@ const EditorComponent = () => {
     const { setEditor } = useEditorStore()
 
     const editor = useEditor({
-
+        
         // Unified editor callbacks
         onCreate: ({ editor }) => setEditor(editor),
 
@@ -59,7 +59,7 @@ const EditorComponent = () => {
         onFocus: ({ editor }) => setEditor(editor),
 
         onBlur: ({ editor }) => setEditor(editor),
-
+        
         onContentError: ({ editor }) => setEditor(editor),
 
         // Editor properties
@@ -85,7 +85,11 @@ const EditorComponent = () => {
             TextStyle,
             TaskList,
             TaskItem.configure({ nested: true }),
-            Table.configure({ resizable: true }),
+            Table.configure({
+                resizable: true,
+                lastColumnResizable: false,
+                allowTableNodeSelection: true
+            }),
             TableRow,
             TableHeader,
             TableCell,
@@ -105,7 +109,6 @@ const EditorComponent = () => {
         ],
 
         content: '<p>Hello World! 🌎️</p>',
-
         immediatelyRender: false,
     })
 
