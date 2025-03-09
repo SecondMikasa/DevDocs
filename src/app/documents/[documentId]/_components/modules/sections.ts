@@ -11,14 +11,11 @@ import {
     Undo2Icon,
     ListTodoIcon,
     RemoveFormattingIcon,
-    AlignRight,
-    AlignCenter,
-    AlignLeft,
-    AlignJustify
+    Code,
+    Strikethrough,
+    Quote,
+    FileCode 
 } from "lucide-react"
-
-import { AlignmentProps } from "@/lib/types";
-import useEditorStore from "@/store/use-editor-store";
 
 export const getSections = (editor: any): {
     label: string;
@@ -42,6 +39,8 @@ export const getSections = (editor: any): {
         if (!printDocument) return;
 
         printDocument.open();
+
+        // FIXME: 'printDocument.write' is deprecated
         printDocument.write(`
             <html>
             <head>
@@ -117,6 +116,38 @@ export const getSections = (editor: any): {
                     icon: UnderlineIcon,
                     isActive: editor?.isActive("underline"),
                     onClick: () => editor?.chain().focus().toggleUnderline().run(),
+                },
+                {
+                    label: "Strikethrough",
+                    icon: Strikethrough,
+                    isActive: editor?.isActive('strike'),
+                    onClick: () => editor?.chain().focus().toggleStrike().run()
+                },
+            ],
+            [
+                {
+                    label: "Code",
+                    icon: Code,
+                    isActive: editor?.isActive('code'),
+                    onClick: () => {
+                        editor?.chain().focus().toggleCode().run()
+                        // if (!editor?.isActive('code')) {
+                        // } else {
+                        //     editor?.chain().focus().unsetCode().run()
+                        // }
+                    }
+                },
+                {
+                    label: "Blockquote",
+                    icon: Quote,
+                    isActive: editor?.isActive('blockquote'),
+                    onClick: () => editor?.chain().focus().toggleBlockquote().run()
+                },
+                {
+                    label: "Code Block",
+                    icon: FileCode,
+                    isActive: editor?.isActive('codeBlock'),
+                    onClick: () => editor?.chain().focus().toggleCodeBlock().run()
                 }
             ],
             [

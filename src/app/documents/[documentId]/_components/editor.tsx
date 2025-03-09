@@ -5,6 +5,13 @@ import {
 } from '@tiptap/react'
 import useEditorStore from '@/store/use-editor-store'
 
+import { all, createLowlight } from 'lowlight'
+
+import css from 'highlight.js/lib/languages/css'
+import js from 'highlight.js/lib/languages/javascript'
+import ts from 'highlight.js/lib/languages/typescript'
+import html from 'highlight.js/lib/languages/xml'
+
 import StarterKit from '@tiptap/starter-kit'
 import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
@@ -19,11 +26,19 @@ import TextStyle from '@tiptap/extension-text-style'
 import { Color } from '@tiptap/extension-color'
 import Highlight from '@tiptap/extension-highlight'
 import Link from '@tiptap/extension-link'
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 
 import { FontSizeExtension } from '@/extensions/font-size'
 import { LineHeightExtension } from '@/extensions/line-height'
 
 import ImageResize from 'tiptap-extension-resize-image'
+
+const lowlight = createLowlight(all)
+
+lowlight.register('html', html)
+lowlight.register('css', css)
+lowlight.register('js', js)
+lowlight.register('ts', ts)
 
 const EditorComponent = () => {
     const { setEditor } = useEditorStore()
@@ -74,7 +89,6 @@ const EditorComponent = () => {
             TableRow,
             TableHeader,
             TableCell,
-            // Image,
             ImageResize,
             Link.configure({
                 openOnClick: true,
@@ -84,6 +98,9 @@ const EditorComponent = () => {
             TextAlign.configure({
                 types: ["heading", "paragraph"],
                 alignments: ['left', 'right', 'center', 'justify'],
+            }),
+            CodeBlockLowlight.configure({
+                lowlight,
             }),
         ],
 

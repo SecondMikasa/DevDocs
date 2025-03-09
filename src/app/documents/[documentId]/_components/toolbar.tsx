@@ -105,7 +105,7 @@ const Toolbar = () => {
             {/* [x]: Font Size */}
 
             <FontSizeButton />
-            
+
             <Separator
                 orientation="vertical"
                 className="h-6 bg-neutral-300"
@@ -144,7 +144,7 @@ const Toolbar = () => {
             {/* [x]: Align */}
 
             <AlignButton />
-                
+
             {/* [x]: Line Height */}
 
             <LineHeightButton />
@@ -154,6 +154,28 @@ const Toolbar = () => {
             <ListButton />
 
             {
+                sections[3].map((item) => (
+                    <ToolbarButton
+                        key={item.label}
+                        {...item}
+                    />
+                ))
+            }
+
+            <Separator
+                orientation="vertical"
+                className="h-6 bg-neutral-300"
+            />
+
+            {/* [x]: CodeBlock */}
+
+            {/* NOTE: "https://tiptap.dev/docs/editor/extensions/nodes/code-block-lowlight" */}
+
+            {/* [x]: Blockquote */}
+
+            {/* NOTE: "https://tiptap.dev/docs/editor/extensions/nodes/blockquote" */}
+
+            {
                 sections[2].map((item) => (
                     <ToolbarButton
                         key={item.label}
@@ -161,6 +183,10 @@ const Toolbar = () => {
                     />
                 ))
             }
+
+            {/* []: Youtube Embed Links */}
+
+            {/* []: Table */}
 
         </div>
     )
