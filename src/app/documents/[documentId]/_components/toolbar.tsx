@@ -2,12 +2,6 @@
 import { cn } from "@/lib/utils";
 
 import { LucideIcon } from "lucide-react"
-import {
-    AlignCenterIcon,
-    AlignJustifyIcon,
-    AlignLeftIcon,
-    AlignRightIcon,
-} from "lucide-react"
 
 import { Separator } from "@/components/separator";
 import {
@@ -15,22 +9,20 @@ import {
     HoverCardContent,
     HoverCardTrigger,
 } from "@/components/hover-card"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuTrigger
-} from "@/components/dropdown-menu"
-
-import { getSections } from "./modules/sections";
-import { FontFamilyButton } from "./modules/font-family";
-import { HeadingLevelButton } from "./modules/heading-level"
-import { TextColorButton } from "./modules/text-color";
 
 import useEditorStore from "@/store/use-editor-store";
+
+import { getSections } from "./modules/sections";
 import { HighlightColorButton } from "./modules/highlight-color";
 import { LinkButton } from "./modules/link-button";
 import { ImageButton } from "./modules/image-button";
 import { AlignButton } from "./modules/align-button";
+import { ListButton } from "./modules/list-button";
+import { FontFamilyButton } from "./modules/font-family";
+import { HeadingLevelButton } from "./modules/heading-level"
+import { TextColorButton } from "./modules/text-color";
+import { FontSizeButton } from "./modules/font-size";
+import { LineHeightButton } from "./modules/line-height";
 
 interface ToolbarButtonProps {
     label: string;
@@ -110,7 +102,14 @@ const Toolbar = () => {
                 className="h-6 bg-neutral-300"
             />
 
-            {/* [ ]: Font Size */}
+            {/* [x]: Font Size */}
+
+            <FontSizeButton />
+            
+            <Separator
+                orientation="vertical"
+                className="h-6 bg-neutral-300"
+            />
 
             {
                 sections[1].map((item) => (
@@ -146,9 +145,13 @@ const Toolbar = () => {
 
             <AlignButton />
                 
-            {/* [ ]: Line Height */}
+            {/* [x]: Line Height */}
 
-            {/* [ ]: List */}
+            <LineHeightButton />
+
+            {/* [x]: List */}
+
+            <ListButton />
 
             {
                 sections[2].map((item) => (

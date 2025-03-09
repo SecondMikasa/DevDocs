@@ -17,3 +17,14 @@ export interface AlignmentProps {
     icon: LucideIcon,
 }
 
+export interface ListProps {
+    label: string;
+    icon: LucideIcon;
+    isActive: () => boolean
+    onClick: () => void
+}
+
+export interface LineHeightProps {
+    label: string;
+    value: string;
+}

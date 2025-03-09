@@ -13,13 +13,15 @@ import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
 import TableRow from '@tiptap/extension-table-row'
 import TextAlign from '@tiptap/extension-text-align'
-// import Image from '@tiptap/extension-image'
 import Underline from '@tiptap/extension-underline'
 import FontFamily from '@tiptap/extension-font-family'
 import TextStyle from '@tiptap/extension-text-style'
 import { Color } from '@tiptap/extension-color'
 import Highlight from '@tiptap/extension-highlight'
 import Link from '@tiptap/extension-link'
+
+import { FontSizeExtension } from '@/extensions/font-size'
+import { LineHeightExtension } from '@/extensions/line-height'
 
 import ImageResize from 'tiptap-extension-resize-image'
 
@@ -56,6 +58,11 @@ const EditorComponent = () => {
         // Extensions
         extensions: [
             StarterKit,
+            FontSizeExtension,
+            LineHeightExtension.configure({
+                types: ["heading", "paragraph"],
+                defaultLineHeight: "normal"
+            }),
             Underline,
             Color,
             Highlight.configure({ multicolor: true }),

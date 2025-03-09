@@ -1,7 +1,7 @@
 import React from "react";
 
-import Editor from "./(components)/editor";
-import Toolbar from "./(components)/toolbar";
+import Editor from "./_components/editor";
+import Toolbar from "./_components/toolbar";
 
 interface DocumentsIdPageProps {
     // From Next15 it has been started to be treated as a promise
