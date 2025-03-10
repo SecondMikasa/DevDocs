@@ -26,7 +26,6 @@ const DocumentsIdPage = ({
         <div className="min-h-screen bg-[#FAFBFD]">
             <Toolbar />
             <Editor />
-            {/*  */}
         </div>
     )
 }

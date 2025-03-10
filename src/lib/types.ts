@@ -28,3 +28,11 @@ export interface LineHeightProps {
     label: string;
     value: string;
 }
+
+export interface MarkerProps {
+    position: number;
+    isLeft: boolean;
+    isDragging: boolean;
+    onMouseDown: () => void;
+    onDoubleClick: () => void;
+}
