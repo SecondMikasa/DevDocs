@@ -23,6 +23,7 @@ import { HeadingLevelButton } from "./modules/heading-level"
 import { TextColorButton } from "./modules/text-color";
 import { FontSizeButton } from "./modules/font-size";
 import { LineHeightButton } from "./modules/line-height";
+import { TableButton } from "./modules/table-button";
 
 interface ToolbarButtonProps {
     label: string;
@@ -187,6 +188,8 @@ const Toolbar = () => {
             {/* []: Youtube Embed Links */}
 
             {/* []: Table */}
+
+            <TableButton/>
 
         </div>
     )
