@@ -23,18 +23,19 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/hover-card"
+import { TableProps } from "@/lib/types";
 
 export const TableButton = () => {
   const { editor } = useEditorStore();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
-  // Execute an option's action without closing the sidebar.
   const handleOptionClick = (action: () => void) => () => {
     action?.();
-    // Note: We intentionally do NOT close the sidebar here.
+    // Same as if(action){ action() }
+    // The optional chaining syntax is a more concise, modern way to conditionally call a function.
   };
 
-  const tableOptions = [
+  const tableOptions: TableProps[] = [
     {
       label: "Insert Table",
       icon: TableIcon,
@@ -96,7 +97,7 @@ export const TableButton = () => {
       <HoverCard openDelay={600}>
         <HoverCardTrigger>
           <button
-            onClick={() => setSidebarOpen(true)}
+            onClick={() => setSidebarOpen(!isSidebarOpen)}
             className="h-7 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5"
           >
             <TableIcon className="size-4" />

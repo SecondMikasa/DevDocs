@@ -1,7 +1,6 @@
 "use client"
 import { cn } from "@/lib/utils";
-
-import { LucideIcon } from "lucide-react"
+import { ToolbarButtonProps } from "@/lib/types";
 
 import { Separator } from "@/components/separator";
 import {
@@ -25,12 +24,6 @@ import { FontSizeButton } from "./modules/font-size";
 import { LineHeightButton } from "./modules/line-height";
 import { TableButton } from "./modules/table-button";
 
-interface ToolbarButtonProps {
-    label: string;
-    onClick?: () => void;
-    isActive?: boolean;
-    icon: LucideIcon
-}
 
 const ToolbarButton = ({
     label,
