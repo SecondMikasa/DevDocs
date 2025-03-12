@@ -1,12 +1,12 @@
 "use client"
-import {
-    useEditor,
-    EditorContent,
-} from '@tiptap/react'
+import { useEffect } from 'react'
+import { useEditor, EditorContent } from '@tiptap/react'
+import { useParams } from 'next/navigation'
 import useEditorStore from '@/store/use-editor-store'
+import { useDocumentStore } from '@/store/document-store'
 
+// Import your existing editor extensions
 import { all, createLowlight } from 'lowlight'
-
 import css from 'highlight.js/lib/languages/css'
 import js from 'highlight.js/lib/languages/javascript'
 import ts from 'highlight.js/lib/languages/typescript'
@@ -33,7 +33,7 @@ import { LineHeightExtension } from '@/extensions/line-height'
 
 import ImageResize from 'tiptap-extension-resize-image'
 
-import { Ruler } from './ruler'
+import { Ruler } from '../app/documents/_components/ruler'
 
 const lowlight = createLowlight(all)
 
@@ -44,24 +44,34 @@ lowlight.register('ts', ts)
 
 const EditorComponent = () => {
     const { setEditor } = useEditorStore()
-
+    const params = useParams()
+    const documentId = params?.id as string
+    
+    const getDocument = useDocumentStore(state => state.getDocument)
+    const updateDocumentContent = useDocumentStore(state => state.updateDocumentContent)
+    const document = getDocument(documentId)
+    
+    // Save content debounce
+    const saveContent = (content: string) => {
+        if (documentId) {
+            updateDocumentContent(documentId, content)
+        }
+    }
+    
+    // Initialize editor with document content or default
     const editor = useEditor({
-        
-        // Unified editor callbacks
         onCreate: ({ editor }) => setEditor(editor),
-
         onDestroy: () => setEditor(null),
-
-        onUpdate: ({ editor }) => setEditor(editor),
-
+        onUpdate: ({ editor }) => {
+            setEditor(editor)
+            // Get HTML content and save to store
+            const content = editor.getHTML()
+            saveContent(content)
+        },
         onSelectionUpdate: ({ editor }) => setEditor(editor),
-
         onTransaction: ({ editor }) => setEditor(editor),
-
         onFocus: ({ editor }) => setEditor(editor),
-
         onBlur: ({ editor }) => setEditor(editor),
-        
         onContentError: ({ editor }) => setEditor(editor),
 
         // Editor properties
@@ -110,9 +120,21 @@ const EditorComponent = () => {
             }),
         ],
 
-        content: '<p>Hello World! 🌎️</p>',
+        // Use document content or default
+        content: document?.content || '<p>Hello World! 🌎️</p>',
         immediatelyRender: false,
     })
+    
+    // When document content changes externally, update editor content
+    useEffect(() => {
+        if (editor && document) {
+            // Only update if content is different to avoid cursor jumps
+            const currentContent = editor.getHTML()
+            if (currentContent !== document.content) {
+                editor.commands.setContent(document.content)
+            }
+        }
+    }, [document, editor])
 
     return (
         <div

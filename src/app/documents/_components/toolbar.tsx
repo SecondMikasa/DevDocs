@@ -12,18 +12,19 @@ import {
 
 import useEditorStore from "@/store/use-editor-store";
 
-import { getSections } from "./modules/sections";
-import { HighlightColorButton } from "./modules/highlight-color";
-import { LinkButton } from "./modules/link-button";
-import { ImageButton } from "./modules/image-button";
-import { AlignButton } from "./modules/align-button";
-import { ListButton } from "./modules/list-button";
-import { FontFamilyButton } from "./modules/font-family";
-import { HeadingLevelButton } from "./modules/heading-level"
-import { TextColorButton } from "./modules/text-color";
-import { FontSizeButton } from "./modules/font-size";
-import { LineHeightButton } from "./modules/line-height";
-import { TableButton } from "./modules/table-button";
+import { getSections } from "@/app/documents/modules/sections";
+import { HighlightColorButton } from "@/app/documents/modules/highlight-color";
+import { LinkButton } from "@/app/documents/modules/link-button";
+import { ImageButton } from "@/app/documents/modules/image-button";
+import { AlignButton } from "@/app/documents/modules/align-button";
+import { ListButton } from "@/app/documents/modules/list-button";
+import { FontFamilyButton } from "@/app/documents/modules/font-family";
+import { HeadingLevelButton } from "@/app/documents/modules/heading-level";
+import { TextColorButton } from "@/app/documents/modules/text-color";
+import { FontSizeButton } from "@/app/documents/modules/font-size";
+import { LineHeightButton } from "@/app/documents/modules/line-height";
+import { TableButton } from "@/app/documents/modules/table-button";
+
 
 interface ToolbarButtonProps {
     label: string;
