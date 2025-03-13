@@ -39,9 +39,55 @@ import {
     LuPrinter
 } from "react-icons/lu";
 
-export const MenuBar = () => {
+export const NavbarMenu = () => {
 
     const { editor } = useEditorStore()
+
+    const insertTable = (rows: number, cols: number) => {
+        editor?.chain().focus().insertTable({ rows, cols, withHeaderRow: true }).run();
+    }
+
+    const onDownload = (blob: Blob, filename: string) => {
+        const url = URL.createObjectURL(blob)
+
+        const a = document.createElement("a")
+        a.href = url
+        a.download = filename
+        a.click()
+    }
+
+    const onSaveJSON = () => {
+        if(!editor) return 
+
+        const content = editor.getJSON()
+        const blob = new Blob([JSON.stringify(content)], {
+            type: "application/json"
+        })
+        // TODO: Use Document Name, fetch from Database
+        onDownload(blob, `document.json`)
+    }
+
+    const onSaveHTML = () => {
+        if(!editor) return 
+
+        const content = editor.getHTML()
+        const blob = new Blob([content], {
+            type: "text/html"
+        })
+        // TODO: Use Document Name, fetch from Database
+        onDownload(blob, `document.html`)
+    }
+
+    const onSaveText = () => {
+        if(!editor) return 
+
+        const content = editor.getText()
+        const blob = new Blob([content], {
+            type: "text/html"
+        })
+        // TODO: Use Document Name, fetch from Database
+        onDownload(blob, `document.txt`)
+    }    
 
     return (
         <div className="flex">
@@ -64,25 +110,25 @@ export const MenuBar = () => {
                                 Save
                             </MenubarSubTrigger>
                             <MenubarSubContent>
-                                <MenubarItem>
+                                <MenubarItem onClick={onSaveJSON}>
                                     <BsFiletypeJson
                                         className="size-4 mr-2"
                                     />
                                     JSON
                                 </MenubarItem>
-                                <MenubarItem>
+                                <MenubarItem onClick={onSaveHTML}>
                                     <BsFiletypeHtml
                                         className="size-4 mr-2"
                                     />
                                     HTML
                                 </MenubarItem>
-                                <MenubarItem>
+                                <MenubarItem onClick={() => printContent(editor!)}>
                                     <BsFileEarmarkPdf
                                         className="size-4 mr-2"
                                     />
                                     PDF
                                 </MenubarItem>
-                                <MenubarItem>
+                                <MenubarItem onClick={onSaveText}>
                                     <BsFileEarmarkText
                                         className="size-4 mr-2"
                                     />
@@ -125,13 +171,17 @@ export const MenuBar = () => {
                         Edit
                     </MenubarTrigger>
                     <MenubarContent>
-                        <MenubarItem>
+                        <MenubarItem
+                            onClick={() => editor?.chain().focus().undo().run()}
+                        >
                             <Undo2Icon
                                 className="size-4 mr-2"
                             />
                             Undo
                         </MenubarItem>
-                        <MenubarItem>
+                        <MenubarItem
+                            onClick={() => editor?.chain().focus().redo().run()}
+                        >
                             <Redo2Icon
                                 className="size-4 mr-2"
                             />
@@ -151,19 +201,29 @@ export const MenuBar = () => {
                                 Table
                             </MenubarSubTrigger>
                             <MenubarSubContent>
-                                <MenubarItem>
+                                <MenubarItem
+                                    onClick={() => insertTable(1, 1)}
+                                >
                                     1 x 1
                                 </MenubarItem>
-                                <MenubarItem>
+                                <MenubarItem
+                                    onClick={() => insertTable(2, 2)}
+                                >
                                     2 x 2
                                 </MenubarItem>
-                                <MenubarItem>
+                                <MenubarItem
+                                    onClick={() => insertTable(3, 3)}
+                                >
                                     3 x 3
                                 </MenubarItem>
-                                <MenubarItem>
+                                <MenubarItem
+                                    onClick={() => insertTable(4, 4)}
+                                >
                                     4 x 4
                                 </MenubarItem>
-                                <MenubarItem>
+                                <MenubarItem
+                                    onClick={() => insertTable(5, 5)}
+                                >
                                     5 x 5
                                 </MenubarItem>
                             </MenubarSubContent>
@@ -185,33 +245,43 @@ export const MenuBar = () => {
                                 Text
                             </MenubarSubTrigger>
                             <MenubarSubContent>
-                                <MenubarItem>
+                                <MenubarItem
+                                    onClick={() => editor?.chain().focus().toggleBold().run()}
+                                >
                                     <BoldIcon
                                         className="size-4 mr-2"
                                     />
-                                        Bold
+                                    Bold
                                 </MenubarItem>
-                                <MenubarItem>
+                                <MenubarItem
+                                    onClick={() => editor?.chain().focus().toggleItalic().run()}
+                                >
                                     <ItalicIcon
                                         className="size-4 mr-2"
                                     />
-                                        Italic
+                                    Italic
                                 </MenubarItem>
-                                <MenubarItem>
+                                <MenubarItem
+                                    onClick={() => editor?.chain().focus().toggleUnderline().run()}
+                                >
                                     <UnderlineIcon
                                         className="size-4 mr-2"
                                     />
-                                        Underline
+                                    Underline
                                 </MenubarItem>
-                                <MenubarItem>
+                                <MenubarItem
+                                    onClick={() => editor?.chain().focus().toggleStrike().run()}
+                                >
                                     <StrikethroughIcon
                                         className="size-4 mr-2"
                                     />
-                                        Strikethrough
+                                    Strikethrough
                                 </MenubarItem>
                             </MenubarSubContent>
                         </MenubarSub>
-                        <MenubarItem>
+                        <MenubarItem
+                            onClick={() => editor?.chain().focus().unsetAllMarks().run()}
+                        >
                             <RemoveFormattingIcon
                                 className="size-4 mr-2"
                             />

@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { DocumentInput } from "./documentInput"
-import { MenuBar } from "./menuBar"
+import { NavbarMenu } from "./navbarMenu"
 
 export const Navbar = () => {
     return (
@@ -21,7 +21,7 @@ export const Navbar = () => {
                 </Link>
                 <div className="flex flex-col">
                     <DocumentInput />
-                    <MenuBar />
+                    <NavbarMenu />
                 </div>
             </div>
         </nav>
