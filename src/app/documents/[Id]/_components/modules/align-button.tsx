@@ -17,12 +17,12 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuTrigger
-} from "@/components/dropdown-menu"
+} from "@/components/ui/dropdown-menu"
 import {
     HoverCard,
     HoverCardContent,
     HoverCardTrigger,
-} from "@/components/hover-card"
+} from "@/components/ui/hover-card"
 
 export const AlignButton = () => {
     const { editor } = useEditorStore()

@@ -2,12 +2,12 @@
 import { cn } from "@/lib/utils";
 import { ToolbarButtonProps } from "@/lib/types";
 
-import { Separator } from "@/components/separator";
+import { Separator } from "@/components/ui/separator";
 import {
     HoverCard,
     HoverCardContent,
     HoverCardTrigger,
-} from "@/components/hover-card"
+} from "@/components/ui/hover-card"
 
 import useEditorStore from "@/store/use-editor-store";
 

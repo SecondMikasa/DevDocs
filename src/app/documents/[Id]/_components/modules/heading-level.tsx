@@ -6,7 +6,7 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuTrigger
-} from "@/components/dropdown-menu"
+} from "@/components/ui/dropdown-menu"
 
 import { cn } from "@/lib/utils";
 

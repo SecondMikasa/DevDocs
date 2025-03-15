@@ -8,7 +8,7 @@ import {
     HoverCard,
     HoverCardContent,
     HoverCardTrigger,
-} from "@/components/hover-card"
+} from "@/components/ui/hover-card"
 
 export const FontSizeButton = () => {
     const { editor } = useEditorStore()

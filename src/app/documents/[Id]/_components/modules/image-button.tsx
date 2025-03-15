@@ -5,28 +5,28 @@ import {
     HoverCard,
     HoverCardContent,
     HoverCardTrigger,
-} from "@/components/hover-card"
+} from "@/components/ui/hover-card"
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger
-} from "@/components/dropdown-menu"
+} from "@/components/ui/dropdown-menu"
 import {
     Dialog,
     DialogContent,
     DialogFooter,
     DialogHeader,
     DialogTitle
-} from "@/components/dialog"
-import { Input } from "@/components/input"
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
 
 import {
     ImageIcon,
     SearchIcon,
     UploadIcon
 } from "lucide-react"
-import { Button } from "@/components/button"
+import { Button } from "@/components/ui/button"
 
 export const ImageButton = () => {
     const { editor } = useEditorStore()

@@ -25,7 +25,7 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/hover-card";
+} from "@/components/ui/hover-card";
 
 import { TableProps } from "@/lib/types";
 import { cn } from "@/lib/utils";

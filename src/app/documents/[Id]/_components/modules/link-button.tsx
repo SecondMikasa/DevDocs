@@ -5,14 +5,14 @@ import {
     HoverCard,
     HoverCardContent,
     HoverCardTrigger,
-} from "@/components/hover-card"
+} from "@/components/ui/hover-card"
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuTrigger
-} from "@/components/dropdown-menu"
-import { Input } from "@/components/input"
-import { Button } from "@/components/button"
+} from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 
 import { Link2Icon } from "lucide-react"
 

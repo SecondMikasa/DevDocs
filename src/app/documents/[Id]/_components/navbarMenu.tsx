@@ -13,7 +13,7 @@ import {
     MenubarSubContent,
     MenubarSubTrigger,
     MenubarTrigger,
-} from "@/components/menubar"
+} from "@/components/ui/menubar"
 
 import {
     Redo2Icon,
