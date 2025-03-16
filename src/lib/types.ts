@@ -54,3 +54,9 @@ export interface MarkerProps {
     onMouseDown: () => void;
     onDoubleClick: () => void;
 }
+
+export interface TemplateProps {
+    id: string;
+    label: string;
+    imageUrl: string;
+}

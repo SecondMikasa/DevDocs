@@ -214,7 +214,7 @@ export const TableButton = () => {
 
                             {/* Highlight overlay on top of grid cells */}
                             <div
-                              className="absolute top-0 left-0 bg-blue-200/50 border-2 border-blue-500 pointer-events-none"
+                              className="absolute top-0 left-0 bg-[#bdedd7] border-2 border-[#85e2b5] pointer-events-none"
                               style={{
                                 width: `${selectedCols * 20}px`,
                                 height: `${selectedRows * 20}px`,
