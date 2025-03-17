@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 import {
     Carousel,
@@ -11,10 +12,30 @@ import {
 
 import { cn } from "@/lib/utils"
 import { templates } from "@/lib/utilities"
+import { useMutation } from "convex/react"
+import { api } from "../../convex/_generated/api"
 
 export const TemplateGallery = () => {
 
+    const router = useRouter()
+
+    const create = useMutation(api.documents.create)
+
     const [isCreating, setIsCreating] = useState(false)
+
+    const onTemplateClick = (title: string, initialContent: string) => {
+        setIsCreating(true)
+        create({
+            title,
+            initialContent
+        })
+            .then((documentId) => {
+                router.push(`/documents/${documentId}`)
+            })
+            .finally(() => {
+                setIsCreating(false)
+            })
+    }
 
     return (
         <div className="bg-[#eeeeee]">
@@ -38,7 +59,8 @@ export const TemplateGallery = () => {
                                     >
                                         <button
                                             disabled={isCreating}
-                                            onClick={() => { }}
+                                            // TODO: Add provision for template content to be passed
+                                            onClick={() => onTemplateClick(template.label, "")}
                                             style={{
                                                 backgroundImage: `url(${template.imageUrl})`,
                                                 backgroundSize: "cover",
@@ -56,7 +78,6 @@ export const TemplateGallery = () => {
                                         >
                                             {template.label}
                                         </p>
-
                                     </div>
                                 </CarouselItem>
                             ))

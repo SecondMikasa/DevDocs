@@ -1,5 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
+
+import { UserButton } from "@clerk/nextjs";
+
 import { SearchInput } from "./search-input";
 
 export const Navbar = () => {
@@ -23,7 +26,7 @@ export const Navbar = () => {
                 </h3>
             </div>
             <SearchInput />
-            {/* TODO: Avatar, working as a Login/Logout Button */}
+            <UserButton />
             <div />
         </nav>
     )

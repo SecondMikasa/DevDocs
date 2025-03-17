@@ -2,19 +2,18 @@
 
 import { Navbar } from "@/components/navbar"
 import { TemplateGallery } from "@/components/template-gallery"
+import { DocumentsTable } from "@/components/documents-table"
 
-import { useQuery } from "convex/react"
+import { usePaginatedQuery } from "convex/react"
 import { api } from "../../convex/_generated/api"
 
 const Home = () => {
 
-  const documents = useQuery(api.documents.get)
-
-  if (documents === undefined) {
-    return (
-      <span className="inline-block w-12 h-12 border-5 border-white border-b-[#ad79e1] rounded-full animate-spin"/>
-    )
-  }
+  const {
+    results,
+    status,
+    loadMore
+  } = usePaginatedQuery(api.documents.get, {}, { initialNumItems: 5 })
 
   return (
     <div className="min-h-screen flex flex-col bg-[#fafbfd]">
@@ -24,15 +23,11 @@ const Home = () => {
       {/* Due to navbar behaving as a fixed component it gets hidden behind the navbar hence we added mt-16 to prevent that behaviour*/}
       <div className="mt-20">
         <TemplateGallery />
-        {
-          documents?.map((document) => (
-            <span
-              key={document._id}
-            >
-              {document.title}
-            </span>
-          ))
-        }
+        <DocumentsTable
+          documents={results}
+          loadMore={loadMore}
+          status={status}
+        />
       </div>
     </div>
 

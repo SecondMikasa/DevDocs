@@ -1,3 +1,6 @@
+import { Doc } from "../../convex/_generated/dataModel";
+import { PaginationStatus } from "convex/react";
+
 export interface SectionProps {
     label: string;
     icon: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -59,4 +62,10 @@ export interface TemplateProps {
     id: string;
     label: string;
     imageUrl: string;
+}
+
+export interface DocumentTableProps {
+    documents: Doc<"documents">[] | undefined;
+    loadMore: (numItems: number) => void;
+    status: PaginationStatus
 }
