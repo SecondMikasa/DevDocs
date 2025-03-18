@@ -20,7 +20,7 @@ import {
   AuthLoading
 } from "convex/react";
 
-import {Loader} from "@/components/ui/loader"
+import {Loader} from "@/components/modules/loader"
 
 const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
@@ -47,7 +47,9 @@ export function ConvexClientProvider({ children }: { children: ReactNode }) {
         </Unauthenticated>
 
         <AuthLoading>
-          <Loader />
+          <Loader
+            label="Trying to get you back in..."
+          />
         </AuthLoading>
 
       </ConvexProviderWithClerk>

@@ -1,7 +1,9 @@
-export const Loader = () => (
+export const Loader = ({
+    label
+}: {label: string}) => (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-6 text-center rounded shadow-lg">
         <p className="text-lg font-medium text-gray-800 mb-4">
-            Authenticating...
+            {label}
         </p>
 
         <div className="relative">

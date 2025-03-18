@@ -1,4 +1,7 @@
-import { Doc } from "../../convex/_generated/dataModel";
+import {
+    Doc,
+    Id
+} from "../../convex/_generated/dataModel";
 import { PaginationStatus } from "convex/react";
 
 export interface SectionProps {
@@ -68,4 +71,19 @@ export interface DocumentTableProps {
     documents: Doc<"documents">[] | undefined;
     loadMore: (numItems: number) => void;
     status: PaginationStatus
+}
+
+export interface DocumentRowProps {
+    document: Doc<"documents">;
+}
+
+export interface DocumentProps {
+    documentId: Id<"documents">;
+    title: string;
+    onNewTab: (id: Id<"documents">) => void;
+}
+
+export interface RemoveDialogProps {
+    documentId: Id<"documents">;
+    children: React.ReactNode
 }
