@@ -14,10 +14,17 @@ import {
 import { SiGoogledocs } from "react-icons/si"
 
 import { DocumentMenu } from "./document-menu"
+import { useRouter } from "next/navigation"
 
 export const DocumentRow = ({
     document
 }: DocumentRowProps) => {
+
+    const router = useRouter()
+
+    const onRowClick = (id: string) => {
+        router.push(`/documents/${id}`)
+    }
 
     const onNewTabClick = (id: string) => {
         window.open(`/documents/${id}`)
@@ -26,6 +33,7 @@ export const DocumentRow = ({
     return (
         <TableRow
             className="cursor-pointer"
+            onClick={() => onRowClick(document._id)}
         >
             <TableCell className="w-[50px]">
                 <SiGoogledocs
