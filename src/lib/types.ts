@@ -1,3 +1,4 @@
+import { RenameDialog } from "@/components/modules/rename-dialog";
 import {
     Doc,
     Id
@@ -85,5 +86,11 @@ export interface DocumentProps {
 
 export interface RemoveDialogProps {
     documentId: Id<"documents">;
-    children: React.ReactNode
+    children: React.ReactNode;
+}
+
+export interface RenameDialogProps  {
+    documentId: Id<"documents">;
+    initialContent: string;
+    children: React.ReactNode;
 }
