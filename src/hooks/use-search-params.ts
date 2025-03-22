@@ -7,6 +7,7 @@ import { parseAsString, useQueryState } from "nuqs"
 
 export function useSearchParams(key: string) {
     return useQueryState(
+        // key can be hardcoded to be search, as using it only once in this project
         key,
         parseAsString
             // By default, every search param will start out as a empty string

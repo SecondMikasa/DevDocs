@@ -4,11 +4,34 @@ import { mutation, query } from "./_generated/server"
 
 export const get = query({
     args: {
-        paginationOpts: paginationOptsValidator
+        paginationOpts: paginationOptsValidator,
+        search: v.optional(v.string())
     },
     handler: async (ctx, args) => {
-        return await ctx.db.query("documents").paginate(args.paginationOpts)
-        // Paginate refers to Loading a page of n results and obtain a Cursor for loading more.
+        const user = await ctx.auth.getUserIdentity()
+
+        if (!user) {
+            throw new Error("Unauthorized Access")
+        }
+
+        // FIXME: Not destructuring it is some how throwing an error of args.search being undefined
+
+        if (args.search) {
+            return await ctx.db
+                .query("documents")
+                .withSearchIndex("search_title", (q) =>
+                    q
+                        .search("title", args.search!)
+                        .eq("ownerId", user.subject))
+                .paginate(args.paginationOpts)
+        }
+
+        return await ctx.db
+            .query("documents")
+            // Allows listing of docs owned by you
+            .withIndex("by_owner_id", (q) => q.eq("ownerId", user.subject))
+            .paginate(args.paginationOpts)
+            // Paginate refers to Loading a page of n results and obtain a Cursor for loading more.
     }
 })
 
@@ -17,7 +40,7 @@ export const getById = query({
         id: v.id("documents")
     },
     handler: async (ctx, args) => {
-       return await ctx.db.get(args.id)
+        return await ctx.db.get(args.id)
     }
 })
 
