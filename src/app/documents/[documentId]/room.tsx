@@ -20,7 +20,10 @@ export function Room({ children }: { children: ReactNode }) {
   const Id = params.documentId
 
   return (
-    <LiveblocksProvider publicApiKey={liveblocksApiKey!} >
+    <LiveblocksProvider
+      authEndpoint="/api/liveblocks-auth"
+      throttle={16}
+    >
       <RoomProvider id={Id as string}>
         <ClientSideSuspense fallback={<DocLoader label="Fetching your document..."/>}>
           {children}
