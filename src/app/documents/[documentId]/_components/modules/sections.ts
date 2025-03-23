@@ -2,7 +2,6 @@ import { type Editor } from "@tiptap/react";
 import {
     BoldIcon,
     ItalicIcon,
-    LucideIcon,
     MessageSquarePlusIcon,
     PrinterIcon,
     Redo2Icon,
@@ -20,7 +19,7 @@ import {
 import printContent from "@/lib/print";
 import { SectionProps } from "@/lib/types";
 
-export const getSections = (editor: any): SectionProps[][] => {
+export const getSections = (editor: Editor): SectionProps[][] => {
 
     const current = editor?.view.dom.getAttribute("spellcheck")
 
@@ -48,7 +47,7 @@ export const getSections = (editor: any): SectionProps[][] => {
                     onClick: () => {
                         editor?.view.dom.setAttribute("spellcheck", current === "false" ? "true" : "false")
                     },
-                    isActive: editor?.view.dom.getAttribute("spellcheck", current === "false" ? "true" : "false")
+                    isActive: current === "true"
                 }
             ],
             [
@@ -107,9 +106,8 @@ export const getSections = (editor: any): SectionProps[][] => {
                 {
                     label: "Comment",
                     icon: MessageSquarePlusIcon,
-                    isActive: false,
-                    //TODO: Implement Comment feature
-                    onClick: () => console.log("Implementation in progress"),
+                    onClick: () => editor?.chain().focus().addPendingComment().run(),
+                    isActive: editor?.isActive("liveblocksCommentMark")
                 },
 
                 {

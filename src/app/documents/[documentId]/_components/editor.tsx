@@ -48,7 +48,7 @@ lowlight.register('ts', ts)
 const EditorComponent = () => {
     const { setEditor } = useEditorStore()
 
-    const Liveblocks = useLiveblocksExtension()
+    const liveblocks = useLiveblocksExtension()
 
     const editor = useEditor({
         
@@ -79,7 +79,7 @@ const EditorComponent = () => {
 
         // Extensions
         extensions: [
-            Liveblocks,
+            liveblocks,
             StarterKit.configure({
                 history: false,
                 codeBlock: false
