@@ -5,6 +5,8 @@ import {
 } from '@tiptap/react'
 import useEditorStore from '@/store/use-editor-store'
 
+import { useLiveblocksExtension, FloatingToolbar } from "@liveblocks/react-tiptap";
+
 import { all, createLowlight } from 'lowlight'
 
 import css from 'highlight.js/lib/languages/css'
@@ -34,6 +36,7 @@ import { LineHeightExtension } from '@/extensions/line-height'
 import ImageResize from 'tiptap-extension-resize-image'
 
 import { Ruler } from './ruler'
+import { Threads } from './threads';
 
 const lowlight = createLowlight(all)
 
@@ -44,6 +47,8 @@ lowlight.register('ts', ts)
 
 const EditorComponent = () => {
     const { setEditor } = useEditorStore()
+
+    const Liveblocks = useLiveblocksExtension()
 
     const editor = useEditor({
         
@@ -74,7 +79,11 @@ const EditorComponent = () => {
 
         // Extensions
         extensions: [
-            StarterKit,
+            Liveblocks,
+            StarterKit.configure({
+                history: false,
+                codeBlock: false
+            }),
             FontSizeExtension,
             LineHeightExtension.configure({
                 types: ["heading", "paragraph"],
@@ -121,7 +130,12 @@ const EditorComponent = () => {
             <div
                 className='min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0'
             >
-                <EditorContent editor={editor} />
+                <EditorContent
+                    editor={editor}
+                />
+                <Threads
+                    editor={editor}
+                />
             </div>
         </div>
     )
