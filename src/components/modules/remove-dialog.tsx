@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { useMutation } from "convex/react"
 
+import { toast } from "sonner"
+
 import {
     AlertDialog,
     AlertDialogAction,
@@ -19,14 +21,34 @@ import { RemoveDialogProps } from "@/lib/types"
 
 import { api } from "../../../convex/_generated/api"
 
+import { ConvexError } from "convex/values";
+
 export const RemoveDialog = ({
     documentId,
     children
 }: RemoveDialogProps) => {
 
     const remove = useMutation(api.documents.removeById)
-    
+
     const [isRemoving, setIsRemoving] = useState(false)
+
+    const handleOnClick = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        setIsRemoving(true)
+        remove({ id: documentId })
+            .then(() => toast.success("Document removed successfully"))
+            .catch((err) => {
+                const errorMsg = err instanceof ConvexError ?
+                    err.data :
+                    "Unexpected error occured"
+                
+                toast.error(errorMsg)
+                // if (err instanceof ConvexError) {
+                //     console.log(err.data)
+                // }
+            })
+            .finally(() => setIsRemoving(false))
+    }
 
     return (
         <AlertDialog>
@@ -38,10 +60,10 @@ export const RemoveDialog = ({
             >
                 <AlertDialogHeader>
                     <AlertDialogTitle>
-                    Are you absolutely sure?
+                        Are you absolutely sure?
                     </AlertDialogTitle>
                     <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete your selected document from our servers.
+                        This action cannot be undone. This will permanently delete your selected document from our servers.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -52,12 +74,7 @@ export const RemoveDialog = ({
                     </AlertDialogCancel>
                     <AlertDialogAction
                         disabled={isRemoving}
-                        onClick={(e) => {
-                            e.stopPropagation()
-                            setIsRemoving(true)
-                            remove({ id: documentId })
-                                .finally(() => setIsRemoving(false))
-                        }}
+                        onClick={handleOnClick}
                     >
                         Delete
                     </AlertDialogAction>

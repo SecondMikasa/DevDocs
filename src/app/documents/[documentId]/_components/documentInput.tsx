@@ -9,6 +9,8 @@ import { BsCloudCheck } from "react-icons/bs";
 import { api } from "../../../../../convex/_generated/api";
 import { Id } from "../../../../../convex/_generated/dataModel";
 import { query } from "../../../../../convex/_generated/server";
+import { toast } from "sonner";
+import { ConvexError } from "convex/values";
 
 type DocumentParams = {
     documentId: Id<"documents">;
@@ -32,7 +34,7 @@ export const DocumentInput = () => {
             setTitle(document.title)
             setIsLoading(false)
         }
-      }, [document])
+    }, [document])
 
     const handleBlur = () => {
         if (title) {
@@ -40,8 +42,16 @@ export const DocumentInput = () => {
                 id: documentId,
                 title: title
             })
+                .then(() => toast.success("Document renamed successfully"))
+                .catch((err) => {
+                    const errorMsg = err instanceof ConvexError ?
+                        err.data :
+                        "Unexpected error occured"
+
+                    toast.error(errorMsg)
+                })
+                .finally(() => setIsEditing(false))
         }
-        setIsEditing(false)
     }
 
     const handleEnter = (e: React.KeyboardEvent) => {
@@ -75,5 +85,5 @@ export const DocumentInput = () => {
             )}
             <BsCloudCheck />
         </div>
-    );
-};
+    )
+}

@@ -1,7 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { UserButton } from "@clerk/nextjs";
+import {
+    UserButton,
+    OrganizationSwitcher
+} from "@clerk/nextjs";
 
 import { SearchInput } from "./search-input";
 
@@ -14,19 +17,27 @@ export const Navbar = () => {
                 className="flex gap-1 items-center shrink-0 pr-2"
             >
                 <Link href="/">
-                   <Image
-                    src="/logo.svg"
-                    alt="logo"
-                    width={70}
-                    height={70}
-                />  
+                    <Image
+                        src="/logo.svg"
+                        alt="logo"
+                        width={70}
+                        height={70}
+                    />
                 </Link>
                 <h3 className="text-xl">
                     DevDocs
                 </h3>
             </div>
             <SearchInput />
-            <UserButton />
+            <div className="flex gap-3 items-center pl-6">
+                <OrganizationSwitcher
+                    afterCreateOrganizationUrl="/"
+                    afterLeaveOrganizationUrl="/"
+                    afterSelectOrganizationUrl="/"
+                    afterSelectPersonalUrl="/"
+                />
+                <UserButton />
+            </div>
             <div />
         </nav>
     )

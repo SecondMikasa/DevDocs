@@ -11,13 +11,17 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
+} from "../ui/dialog"
+import { Input } from "../ui/input"
+import { Button } from "../ui/button"
+
+import { toast } from "sonner"
 
 import { RenameDialogProps } from "@/lib/types"
 
 import { api } from "../../../convex/_generated/api"
-import { Button } from "../ui/button"
-import { Input } from "../ui/input"
+
+import { ConvexError } from "convex/values";
 
 export const RenameDialog = ({
     documentId,
@@ -39,6 +43,14 @@ export const RenameDialog = ({
             id: documentId,
             title: title.trim() || "Untitled"
         })
+            .then(() => toast.success("Document renamed successfully"))
+            .catch((err) => {
+                const errorMsg = err instanceof ConvexError ?
+                    err.data :
+                    "Unexpected error occured"
+
+                toast.error(errorMsg)
+            })
             .finally(() => {
                 setIsUpdating(false)
                 setOpen(false)

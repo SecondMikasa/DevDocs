@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils"
 import { templates } from "@/lib/utilities"
 import { useMutation } from "convex/react"
 import { api } from "../../convex/_generated/api"
+import { toast } from "sonner"
 
 export const TemplateGallery = () => {
 
@@ -30,6 +31,7 @@ export const TemplateGallery = () => {
             initialContent
         })
             .then((documentId) => {
+                toast.success("Document created successfully")
                 router.push(`/documents/${documentId}`)
             })
             .finally(() => {

@@ -14,9 +14,25 @@ export const get = query({
             throw new Error("Unauthorized Access")
         }
 
-        // FIXME: Not destructuring it is some how throwing an error of args.search being undefined
+        // console.log({user})
 
-        if (args.search) {
+        const organizationId = (user.organization_id ?? undefined) as string | undefined
+
+        // Search within the organization
+        if (args.search && organizationId) {
+            return await ctx.db
+                .query("documents")
+                .withSearchIndex("search_title", (q) =>
+                    q
+                        .search("title", args.search!)
+                        .eq("organizationId", organizationId)
+                )
+                .paginate(args.paginationOpts)
+
+        }
+
+        // Search through personal documents
+        else if (args.search) {
             return await ctx.db
                 .query("documents")
                 .withSearchIndex("search_title", (q) =>
@@ -26,6 +42,15 @@ export const get = query({
                 .paginate(args.paginationOpts)
         }
 
+        // Fetch all docs of an organization
+        else if (organizationId) {
+            return await ctx.db
+                .query("documents")
+                .withIndex("by_organization_id", (q) => q.eq("organizationId", organizationId))
+                .paginate(args.paginationOpts)
+        }
+
+        // Fetch all the personal docs (default behaviour)
         return await ctx.db
             .query("documents")
             // Allows listing of docs owned by you
@@ -56,9 +81,12 @@ export const create = mutation({
             throw new ConvexError("Unauthorized Access")
         }
 
+        const organizationId = (user.organization_id ?? undefined) as string | undefined
+
         return await ctx.db.insert("documents", {
             title: args.title ?? "Untitled Document",
             ownerId: user.subject,
+            organizationId,
             initialContent: args.initialContent
         })
     }
@@ -75,6 +103,8 @@ export const removeById = mutation({
             throw new ConvexError("Unauthorized Access")
         }
 
+        const organizationId = (user.organization_id ?? undefined) as string | undefined
+
         const document = await ctx.db.get(args.id)
 
         if (!document) {
@@ -82,8 +112,9 @@ export const removeById = mutation({
         }
 
         const isOwner = document.ownerId === user.subject
+        const isOrganizationMember = document.organizationId === organizationId
 
-        if (!isOwner) {
+        if (!isOwner && !isOrganizationMember) {
             throw new ConvexError("You don't seem to have proper permission to manage this document")
         }
 
@@ -103,6 +134,8 @@ export const updateById = mutation({
             throw new ConvexError("Unauthorized Access")
         }
 
+        const organizationId = (user.organization_id ?? undefined) as string | undefined
+
         const document = await ctx.db.get(args.id)
 
         if (!document) {
@@ -110,8 +143,9 @@ export const updateById = mutation({
         }
 
         const isOwner = document.ownerId === user.subject
+        const isOrganizationMember = document.organizationId === organizationId
 
-        if (!isOwner) {
+        if (!isOwner && !isOrganizationMember) {
             throw new ConvexError("You don't seem to have proper permission to manage this document")
         }
 

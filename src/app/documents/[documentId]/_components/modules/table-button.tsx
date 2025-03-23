@@ -188,6 +188,7 @@ export const TableButton = () => {
                             className="relative w-[200px] h-[200px] grid grid-cols-10 grid-rows-10 gap-1 bg-white cursor-crosshair"
                             onMouseMove={(e) => {
                               const rect = e.currentTarget.getBoundingClientRect();
+                              // console.log(rect);
                               const x = e.clientX - rect.left;
                               const y = e.clientY - rect.top;
                               const newCols = Math.min(Math.floor(x / 20) + 1, maxCols);
