@@ -4,7 +4,7 @@ import Editor from "./_components/editor";
 import Toolbar from "./_components/toolbar";
 import { Navbar } from "./_components/navbar";
 
-import { Room } from "./room";
+import { Room } from "@/components/room";
 
 interface DocumentsIdPageProps {
     // From Next15 it has been started to be treated as a promise

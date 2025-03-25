@@ -3,7 +3,7 @@ import { Liveblocks } from "@liveblocks/node"
 import { ConvexHttpClient } from "convex/browser"
 import { useQuery } from "convex/react"
 
-import { api } from "../../../convex/_generated/api"
+import { api } from "../../../../convex/_generated/api"
 
 import { auth, currentUser } from "@clerk/nextjs/server"
 
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     }
 
     const isOwner = document.ownerId === user.id
-    const isOrganizationMember = document.organizationId === sessionClaims.org_id
+    const isOrganizationMember = document.organizationId && document.organizationId === sessionClaims.org_id
 
     if (!isOwner && !isOrganizationMember) {
         return new Response("You don't seem to have proper permission to manage this document", { status: 401 })

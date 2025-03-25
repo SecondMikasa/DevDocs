@@ -112,7 +112,7 @@ export const removeById = mutation({
         }
 
         const isOwner = document.ownerId === user.subject
-        const isOrganizationMember = document.organizationId === organizationId
+        const isOrganizationMember = document.organizationId && document.organizationId === organizationId
 
         if (!isOwner && !isOrganizationMember) {
             throw new ConvexError("You don't seem to have proper permission to manage this document")
@@ -143,7 +143,7 @@ export const updateById = mutation({
         }
 
         const isOwner = document.ownerId === user.subject
-        const isOrganizationMember = document.organizationId === organizationId
+        const isOrganizationMember = document.organizationId && document.organizationId === organizationId
 
         if (!isOwner && !isOrganizationMember) {
             throw new ConvexError("You don't seem to have proper permission to manage this document")
