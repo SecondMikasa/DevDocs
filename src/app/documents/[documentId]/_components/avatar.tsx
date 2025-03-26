@@ -1,6 +1,7 @@
 "use client"
 
 import { Separator } from "@/components/ui/separator"
+
 import { AvatarProps } from "@/lib/types"
 
 import { ClientSideSuspense } from "@liveblocks/react"
@@ -22,7 +23,7 @@ export const Avatars = () => {
     )
 }
 
-export const AvatarStack = () => {
+const AvatarStack = () => {
     const users = useOthers()
     const currentUser = useSelf()
 
@@ -57,7 +58,10 @@ export const AvatarStack = () => {
                     }
                 </div>
             </div>
-            <Separator />
+            <Separator
+                orientation="vertical"
+                className="h-6"
+            />
         </>
     )
 }
