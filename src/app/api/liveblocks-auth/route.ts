@@ -52,7 +52,8 @@ export async function POST(req: Request) {
 
     const session = liveblocks.prepareSession(user.id, {
         userInfo: {
-            name: user.fullName ?? "Anonymous",
+            // NOTE: user.fullName doesnot exist if google auth is used
+            name: user.fullName ?? user.primaryEmailAddress?.emailAddress ?? "Anonymous",
             avatar: user.imageUrl
         }
     })

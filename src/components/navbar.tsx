@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 import Image from "next/image";
 
@@ -7,6 +8,7 @@ import {
 } from "@clerk/nextjs";
 
 import { SearchInput } from "./search-input";
+import { Avatars } from "@/app/documents/[documentId]/_components/avatar";
 
 export const Navbar = () => {
     return (
@@ -30,6 +32,8 @@ export const Navbar = () => {
             </div>
             <SearchInput />
             <div className="flex gap-3 items-center pl-6">
+                {/* FIXME:  */}
+                <Avatars />
                 <OrganizationSwitcher
                     afterCreateOrganizationUrl="/"
                     afterLeaveOrganizationUrl="/"

@@ -94,3 +94,14 @@ export interface RenameDialogProps  {
     initialContent: string;
     children: React.ReactNode;
 }
+
+export type User = {
+    id: string;
+    name: string;
+    avatar: string;
+}
+
+export interface AvatarProps {
+    src: string;
+    name: string;
+}
