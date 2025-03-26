@@ -8,6 +8,7 @@ import {
     OrganizationSwitcher
 } from "@clerk/nextjs";
 import { Avatars } from "./avatar";
+import { Inbox } from "./inbox";
 
 export const Navbar = () => {
     return (
@@ -32,6 +33,7 @@ export const Navbar = () => {
             </div>
             <div className="flex gap-3 items-center pl-6">
                 <Avatars />
+                <Inbox />
                 <OrganizationSwitcher
                     afterCreateOrganizationUrl="/"
                     afterLeaveOrganizationUrl="/"
