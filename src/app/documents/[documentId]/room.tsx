@@ -107,6 +107,10 @@ export function Room({ children }: { children: ReactNode }) {
     >
       <RoomProvider
         id={Id as string}
+        initialStorage={{
+          leftMargin: 56,
+          rightMargin: 56
+        }}
       >
         <ClientSideSuspense
           fallback={
