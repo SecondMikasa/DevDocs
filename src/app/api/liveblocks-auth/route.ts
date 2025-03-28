@@ -1,7 +1,6 @@
 import { Liveblocks } from "@liveblocks/node"
 
 import { ConvexHttpClient } from "convex/browser"
-import { useQuery } from "convex/react"
 
 import { api } from "../../../../convex/_generated/api"
 

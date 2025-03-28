@@ -28,7 +28,6 @@ import {
 } from "@/components/ui/hover-card";
 
 import { TableProps } from "@/lib/types";
-import { cn } from "@/lib/utils";
 
 export const TableButton = () => {
 
@@ -196,7 +195,7 @@ export const TableButton = () => {
                               setSelectedRows(newRows);
                               setSelectedCols(newCols);
                             }}
-                            onMouseLeave={(e) => {
+                            onMouseLeave={() => {
                               setSelectedRows(0)
                               setSelectedCols(0)
                             }}

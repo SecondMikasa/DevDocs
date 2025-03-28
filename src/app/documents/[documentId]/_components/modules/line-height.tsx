@@ -1,16 +1,11 @@
 import { useState } from "react"
 
 import { cn } from "@/lib/utils"
-import { AlignmentProps, LineHeightProps } from "@/lib/types"
+import { LineHeightProps } from "@/lib/types"
 
 import useEditorStore from "@/store/use-editor-store"
 
 import {
-    AlignCenterIcon,
-    AlignJustifyIcon,
-    AlignLeftIcon,
-    AlignRightIcon,
-    AlignEndHorizontal,
     ListCollapseIcon
 } from "lucide-react"
 

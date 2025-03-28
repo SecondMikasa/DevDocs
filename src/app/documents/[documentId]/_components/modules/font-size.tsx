@@ -2,13 +2,8 @@ import { useState } from "react"
 
 import useEditorStore from "@/store/use-editor-store"
 
-import { MinusIcon, PlusIcon, TypeOutline } from 'lucide-react';
+import { MinusIcon, PlusIcon } from 'lucide-react';
 
-import {
-    HoverCard,
-    HoverCardContent,
-    HoverCardTrigger,
-} from "@/components/ui/hover-card"
 
 export const FontSizeButton = () => {
     const { editor } = useEditorStore()

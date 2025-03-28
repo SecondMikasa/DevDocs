@@ -1,4 +1,3 @@
-import { RenameDialog } from "@/components/modules/rename-dialog";
 import {
     Doc,
     Id
@@ -104,4 +103,8 @@ export type User = {
 export interface AvatarProps {
     src: string;
     name: string;
+}
+
+export interface NavigationProps {
+    data: Doc<"documents">
 }

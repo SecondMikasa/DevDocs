@@ -1,16 +1,21 @@
 import Image from "next/image"
 import Link from "next/link"
-import { DocumentInput } from "./documentInput"
-import { NavbarMenu } from "./navbarMenu"
 
 import {
     UserButton,
     OrganizationSwitcher
 } from "@clerk/nextjs";
+
+import { DocumentInput } from "./documentInput"
+import { NavbarMenu } from "./navbarMenu"
 import { Avatars } from "./avatar";
 import { Inbox } from "./inbox";
 
-export const Navbar = () => {
+import { NavigationProps } from "@/lib/types";
+
+const Navbar = ({
+    data
+}: NavigationProps) => {
     return (
         <nav
             className="flex items-center justify-between"
@@ -28,7 +33,9 @@ export const Navbar = () => {
                 </Link>
                 <div className="flex flex-col">
                     <DocumentInput />
-                    <NavbarMenu />
+                    <NavbarMenu
+                        data={data}
+                    />
                 </div>
             </div>
             <div className="flex gap-3 items-center pl-6">
@@ -45,3 +52,5 @@ export const Navbar = () => {
         </nav>
     )
 }
+
+export default Navbar

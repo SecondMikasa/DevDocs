@@ -65,7 +65,13 @@ export const getById = query({
         id: v.id("documents")
     },
     handler: async (ctx, args) => {
-        return await ctx.db.get(args.id)
+        const document = await ctx.db.get(args.id)
+
+        if (!document) {
+            throw new ConvexError("Document not found")
+        }
+
+        return document
     }
 })
 

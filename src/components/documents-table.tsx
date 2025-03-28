@@ -3,7 +3,6 @@ import { DocumentTableProps } from "@/lib/types"
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,

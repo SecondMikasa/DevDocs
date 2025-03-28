@@ -1,6 +1,6 @@
 "use client"
-import useEditorStore from "@/store/use-editor-store";
-import printContent from "@/lib/print";
+import useEditorStore from "@/store/use-editor-store"
+import printContent from "@/lib/print"
 
 import {
     Menubar,
@@ -8,7 +8,6 @@ import {
     MenubarItem,
     MenubarMenu,
     MenubarSeparator,
-    MenubarShortcut,
     MenubarSub,
     MenubarSubContent,
     MenubarSubTrigger,
@@ -24,7 +23,7 @@ import {
     RemoveFormattingIcon,
     TextIcon,
     Undo2Icon
-} from "lucide-react";
+} from "lucide-react"
 import {
     BsFileEarmarkArrowDown,
     BsFileEarmarkPlus,
@@ -32,14 +31,18 @@ import {
     BsFiletypeHtml,
     BsFileEarmarkPdf,
     BsFileEarmarkText
-} from "react-icons/bs";
+} from "react-icons/bs"
 import {
     LuFilePen,
     LuTrash,
     LuPrinter
-} from "react-icons/lu";
+} from "react-icons/lu"
 
-export const NavbarMenu = () => {
+import { NavigationProps } from "@/lib/types"
+
+export const NavbarMenu = ({
+    data
+}: NavigationProps) => {
 
     const { editor } = useEditorStore()
 
@@ -63,8 +66,7 @@ export const NavbarMenu = () => {
         const blob = new Blob([JSON.stringify(content)], {
             type: "application/json"
         })
-        // TODO: Use Document Name, fetch from Database
-        onDownload(blob, `document.json`)
+        onDownload(blob, `${data.title}.json`)
     }
 
     const onSaveHTML = () => {
@@ -75,7 +77,7 @@ export const NavbarMenu = () => {
             type: "text/html"
         })
         // TODO: Use Document Name, fetch from Database
-        onDownload(blob, `document.html`)
+        onDownload(blob, `${data.title}.html`)
     }
 
     const onSaveText = () => {
@@ -86,7 +88,7 @@ export const NavbarMenu = () => {
             type: "text/html"
         })
         // TODO: Use Document Name, fetch from Database
-        onDownload(blob, `document.txt`)
+        onDownload(blob, `${data.title}.txt`)
     }    
 
     return (

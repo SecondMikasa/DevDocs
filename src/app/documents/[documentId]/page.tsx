@@ -1,19 +1,21 @@
 import React from "react";
 
-import Editor from "./_components/editor";
-import Toolbar from "./_components/toolbar";
-import { Navbar } from "./_components/navbar";
+import Document from "./document";
 
-import { Room } from "@/app/documents/[documentId]/room";
+import { Id } from "../../../../convex/_generated/dataModel";
+
+import { auth } from "@clerk/nextjs/server";
+import { preloadQuery } from "convex/nextjs";
+import { api } from "../../../../convex/_generated/api";
 
 interface DocumentsIdPageProps {
     // From Next15 it has been started to be treated as a promise
     params: Promise<{
-        documentId: string;
+        documentId: Id<"documents">;
     }>
 }
 
-const DocumentsIdPage = ({
+const DocumentsIdPage = async ({
     params
 }: DocumentsIdPageProps) => {
 
@@ -21,22 +23,27 @@ const DocumentsIdPage = ({
     // const awaitedParams = await params
     // const documentId = awaitedParams.documentId
     // OR
-    // const { documentId } = await params
+    // const { documentId } = React.use(params)
+    
+    const { documentId } = await params
 
-    const { documentId } = React.use(params)
+    const { getToken } = await auth()
+    const token = await getToken({ template: "convex" }) ?? "undefined"
+
+    if (!token) {
+        throw new Error("Unauthorized Access")
+    }
+
+    const preloadedDocument = await preloadQuery(
+        api.documents.getById,
+        { id: documentId },
+        { token }
+    )
 
     return (
-        <Room>
-            <div className="min-h-screen bg-[#FAFBFD]">
-                <div className="flex flex-col px-4 pt-2 gap-y-2 fixed top-0 left-0 right-0 z-10 bg-[#FAFBFD] print:hidden">
-                    <Navbar />
-                    <Toolbar />
-                </div>
-                <div className="pt-[122px] print:pt-0">
-                    <Editor />
-                </div>
-            </div>
-        </Room>
+        <Document
+            preloadedDocument={preloadedDocument}
+        />
     )
 }
 

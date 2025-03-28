@@ -8,7 +8,6 @@ import { BsCloudCheck } from "react-icons/bs";
 
 import { api } from "../../../../../convex/_generated/api";
 import { Id } from "../../../../../convex/_generated/dataModel";
-import { query } from "../../../../../convex/_generated/server";
 import { toast } from "sonner";
 import { ConvexError } from "convex/values";
 

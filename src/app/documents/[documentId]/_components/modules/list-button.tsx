@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 import { cn } from "@/lib/utils"
-import { AlignmentProps, ListProps } from "@/lib/types"
+import { ListProps } from "@/lib/types"
 
 import useEditorStore from "@/store/use-editor-store"
 
