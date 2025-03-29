@@ -62,7 +62,8 @@ const EditorComponent = ({
     const rightMargin = useStorage((root) => root.rightMargin)
 
     const editor = useEditor({
-        
+        autofocus: true,
+
         // Unified editor callbacks
         onCreate: ({ editor }) => setEditor(editor),
 

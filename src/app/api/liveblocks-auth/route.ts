@@ -49,11 +49,18 @@ export async function POST(req: Request) {
         // })
     }
 
+    // NOTE: user.fullName doesnot exist if google auth is used
+    const name = user.fullName ?? user.primaryEmailAddress?.emailAddress ?? "Anonymous"
+
+    const nameToNumber = name.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0)
+    const hue = Math.abs(nameToNumber) % 360
+    const color = `hsl(${hue}, 80%, 60%)`
+
     const session = liveblocks.prepareSession(user.id, {
         userInfo: {
-            // NOTE: user.fullName doesnot exist if google auth is used
-            name: user.fullName ?? user.primaryEmailAddress?.emailAddress ?? "Anonymous",
-            avatar: user.imageUrl
+            name: name,
+            avatar: user.imageUrl,
+            color: color
         }
     })
 
