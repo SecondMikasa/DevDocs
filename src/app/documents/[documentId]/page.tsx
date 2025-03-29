@@ -1,12 +1,14 @@
-import React from "react";
+import React from "react"
 
-import Document from "./document";
+import Document from "./document"
 
-import { Id } from "../../../../convex/_generated/dataModel";
+import { Id } from "../../../../convex/_generated/dataModel"
 
-import { auth } from "@clerk/nextjs/server";
-import { preloadQuery } from "convex/nextjs";
-import { api } from "../../../../convex/_generated/api";
+import { auth } from "@clerk/nextjs/server"
+
+import { preloadQuery } from "convex/nextjs"
+
+import { api } from "../../../../convex/_generated/api"
 
 interface DocumentsIdPageProps {
     // From Next15 it has been started to be treated as a promise
@@ -39,6 +41,10 @@ const DocumentsIdPage = async ({
         { id: documentId },
         { token }
     )
+
+    if (!preloadedDocument) {
+        throw new Error("Some error creeped in while loading your document")
+    }
 
     return (
         <Document

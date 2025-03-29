@@ -116,7 +116,7 @@ export function Room({ children }: { children: ReactNode }) {
         <ClientSideSuspense
           fallback={
             <DocLoader
-              label="Fetching your document..."
+              label="Initializing your document..."
             />
           }
         >

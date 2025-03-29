@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -32,7 +33,10 @@ const Navbar = ({
                     />
                 </Link>
                 <div className="flex flex-col">
-                    <DocumentInput />
+                    <DocumentInput
+                        title={data.title}
+                        id={data._id}
+                    />
                     <NavbarMenu
                         data={data}
                     />

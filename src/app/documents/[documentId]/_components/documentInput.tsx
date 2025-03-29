@@ -1,88 +1,152 @@
 "use client"
-import { useEffect, useState } from "react";
-import { useMutation, useQuery } from "convex/react";
+import { useRef, useState } from "react"
+import { useMutation } from "convex/react"
 
-import { useParams } from "next/navigation";
+import {
+    BsCloudCheck,
+    BsCloudSlash
+} from "react-icons/bs"
 
-import { BsCloudCheck } from "react-icons/bs";
+import { api } from "../../../../../convex/_generated/api"
+import { Id } from "../../../../../convex/_generated/dataModel"
 
-import { api } from "../../../../../convex/_generated/api";
-import { Id } from "../../../../../convex/_generated/dataModel";
-import { toast } from "sonner";
-import { ConvexError } from "convex/values";
+import { useDebounce } from "@/hooks/use-debounce"
+
+import { toast } from "sonner"
+
+import { ConvexError } from "convex/values"
+
+import { useStatus } from "@liveblocks/react"
 
 type DocumentParams = {
-    documentId: Id<"documents">;
+    title: string
+    id: Id<"documents">;
 }
 
-export const DocumentInput = () => {
+export const DocumentInput = ({
+    title,
+    id
+}: DocumentParams) => {
 
-    const { documentId } = useParams<DocumentParams>()
+    const status = useStatus()
 
-    const update = useMutation(api.documents.updateById)
-    const document = useQuery(api.documents.getById, {
-        id: documentId
+    const mutate = useMutation(api.documents.updateById)
+
+    const [value, setValue] = useState(title)
+
+    const [isEditing, setIsEditing] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+
+    const inputRef = useRef<HTMLInputElement>(null)
+
+    const debouncedUpdate = useDebounce((newValue: string) => {
+        if (newValue === title) return
+
+        setIsLoading(true)
+
+        mutate({
+            id: id,
+            title: newValue
+        })
+            .then(() => {
+                // setIsEditing(false)
+                toast.success("Document renamed successfully")
+            })
+            .catch((err) => {
+                const errorMsg = err instanceof ConvexError ?
+                    err.data :
+                    "Unexpected error occured"
+
+                toast.error(errorMsg)
+            })
+            .finally(() => setIsLoading(false))
     })
 
-    const [title, setTitle] = useState("")
-    const [isEditing, setIsEditing] = useState(false)
-    const [isLoading, setIsLoading] = useState(true)
+    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
-    useEffect(() => {
-        if (document?.title) {
-            setTitle(document.title)
-            setIsLoading(false)
-        }
-    }, [document])
+        const newValue = e.target.value
 
-    const handleBlur = () => {
-        if (title) {
-            update({
-                id: documentId,
-                title: title
+        setValue(newValue)
+        debouncedUpdate(newValue)
+    }
+
+    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        setIsLoading(true)
+        mutate({
+            id: id,
+            title: value
+        })
+            .then(() => {
+                setIsEditing(false)
+                toast.success("Document renamed successfully")
             })
-                .then(() => toast.success("Document renamed successfully"))
-                .catch((err) => {
-                    const errorMsg = err instanceof ConvexError ?
-                        err.data :
-                        "Unexpected error occured"
+            .catch((err) => {
+                const errorMsg = err instanceof ConvexError ?
+                    err.data :
+                    "Unexpected error occured"
 
-                    toast.error(errorMsg)
-                })
-                .finally(() => setIsEditing(false))
-        }
+                toast.error(errorMsg)
+            })
+            .finally(() => setIsLoading(false))
     }
 
-    const handleEnter = (e: React.KeyboardEvent) => {
-        if (e.key === "Enter") {
-            e.preventDefault()
-            handleBlur()
-        }
-    }
+    const showLoader = isLoading || status === "connecting" || status === "reconnecting"
+    const showError = status === "disconnected"
 
     return (
         <div className="flex items-center gap-2">
             {isEditing ? (
-                <input
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    onBlur={handleBlur}
-                    onKeyDown={handleEnter}
-                    autoFocus
-                    className="text-lg px-1.5 border-b border-gray-400 outline-none"
-                />
-            ) : isLoading ? (
-                <div className="w-4 h-4 border-4 border-[#aae9cb] border-b-transparent rounded-full inline-block box-border animate-spin" />
+                <form
+                    className="relative w-fit max-w-[50ch]"
+                    onSubmit={handleOnSubmit}
+                >
+                    <span className="invisible whitespace-pre px-1.5 text-lg">
+                        {
+                            value || ""
+                        }
+                    </span>
+                    <input
+                        ref={inputRef}
+                        value={value}
+                        onBlur={() => setIsEditing(false)}
+                        onChange={handleOnChange}
+                        className="absolute inset-0 text-lg text-black px-1.5 bg-transparent truncate"
+                    />
+                </form>
             ) : (
                 <span
                     className="text-lg px-1.5 cursor-pointer truncate"
-                    onClick={() => setIsEditing(true)}
+                    onClick={() => {
+                        setIsEditing(true)
+                        setTimeout(() => {
+                            inputRef.current?.focus()
+                        }, 0)
+                    }}
                 >
                     {title}
                 </span>
             )}
-            <BsCloudCheck />
+            {
+                showError && (
+                    <BsCloudSlash
+                        className="size-4"
+                    />
+                )
+            }
+            {
+                !showError && !showLoader && (
+                    <BsCloudCheck
+                        className="size-4"
+                    />
+                )
+            }
+            {
+                showLoader && (
+                    <div className="size-4 border-4 border-[#aae9cb] border-b-transparent rounded-full inline-block box-border animate-spin" />
+                )
+            }
         </div>
     )
 }

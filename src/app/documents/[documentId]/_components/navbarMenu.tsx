@@ -76,7 +76,6 @@ export const NavbarMenu = ({
         const blob = new Blob([content], {
             type: "text/html"
         })
-        // TODO: Use Document Name, fetch from Database
         onDownload(blob, `${data.title}.html`)
     }
 
