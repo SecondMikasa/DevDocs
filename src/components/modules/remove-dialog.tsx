@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { useMutation } from "convex/react"
 
 import { toast } from "sonner"
@@ -28,15 +29,24 @@ export const RemoveDialog = ({
     children
 }: RemoveDialogProps) => {
 
+    const router = useRouter()
+
     const remove = useMutation(api.documents.removeById)
 
     const [isRemoving, setIsRemoving] = useState(false)
 
+    // FIXME: Upon deleting a document,the code is catching the error first and pushing afterwards
     const handleOnClick = (e: React.MouseEvent) => {
         e.stopPropagation()
         setIsRemoving(true)
         remove({ id: documentId })
-            .then(() => toast.success("Document removed successfully"))
+            .then(() => {
+                toast.success("Document removed successfully")
+                // NOTE: Without setTimeout, the router is not even triggered for pushing
+                setTimeout(() => {
+                router.push('/')
+            }, 100)
+            })
             .catch((err) => {
                 const errorMsg = err instanceof ConvexError ?
                     err.data :

@@ -14,6 +14,9 @@ import {
     MenubarTrigger,
 } from "@/components/ui/menubar"
 
+import { RenameDialog } from "@/components/modules/rename-dialog"
+import { RemoveDialog } from "@/components/modules/remove-dialog"
+
 import {
     Redo2Icon,
     BoldIcon,
@@ -38,11 +41,12 @@ import {
     LuPrinter
 } from "react-icons/lu"
 
-import { NavigationProps } from "@/lib/types"
+import { NavbarMenuProps } from "@/lib/types"
 
 export const NavbarMenu = ({
-    data
-}: NavigationProps) => {
+    data,
+    handleNewDocument
+}: NavbarMenuProps) => {
 
     const { editor } = useEditorStore()
 
@@ -60,7 +64,7 @@ export const NavbarMenu = ({
     }
 
     const onSaveJSON = () => {
-        if(!editor) return 
+        if (!editor) return
 
         const content = editor.getJSON()
         const blob = new Blob([JSON.stringify(content)], {
@@ -70,7 +74,7 @@ export const NavbarMenu = ({
     }
 
     const onSaveHTML = () => {
-        if(!editor) return 
+        if (!editor) return
 
         const content = editor.getHTML()
         const blob = new Blob([content], {
@@ -80,7 +84,7 @@ export const NavbarMenu = ({
     }
 
     const onSaveText = () => {
-        if(!editor) return 
+        if (!editor) return
 
         const content = editor.getText()
         const blob = new Blob([content], {
@@ -88,7 +92,7 @@ export const NavbarMenu = ({
         })
         // TODO: Use Document Name, fetch from Database
         onDownload(blob, `${data.title}.txt`)
-    }    
+    }
 
     return (
         <div className="flex">
@@ -137,25 +141,42 @@ export const NavbarMenu = ({
                                 </MenubarItem>
                             </MenubarSubContent>
                         </MenubarSub>
-                        <MenubarItem>
+                        <MenubarItem
+                            onClick={handleNewDocument}
+                        >
                             <BsFileEarmarkPlus
                                 className="size-4 mr-2"
                             />
                             New Document
                         </MenubarItem>
                         <MenubarSeparator />
-                        <MenubarItem>
-                            <LuFilePen
-                                className="size-4 mr-2"
-                            />
-                            Rename
-                        </MenubarItem>
-                        <MenubarItem>
-                            <LuTrash
-                                className="size-4 mr-2"
-                            />
-                            Remove
-                        </MenubarItem>
+                        <RenameDialog
+                            documentId={data._id}
+                            initialContent={data.title}
+                        >
+                            <MenubarItem
+                                onClick={(e) => e.stopPropagation()}
+                                onSelect={(e) => e.preventDefault()}
+                            >
+                                <LuFilePen
+                                    className="size-4 mr-2"
+                                />
+                                Rename
+                            </MenubarItem>
+                        </RenameDialog>
+                        <RemoveDialog
+                            documentId={data._id}
+                        >
+                            <MenubarItem
+                                onClick={(e) => e.stopPropagation()}
+                                onSelect={(e) => e.preventDefault()}
+                            >
+                                <LuTrash
+                                    className="size-4 mr-2"
+                                />
+                                Remove
+                            </MenubarItem>
+                        </RemoveDialog>
                         <MenubarSeparator />
                         <MenubarItem onClick={() => printContent(editor!)}>
                             <LuPrinter

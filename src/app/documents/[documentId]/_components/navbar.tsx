@@ -1,22 +1,45 @@
 "use client"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 import {
     UserButton,
     OrganizationSwitcher
-} from "@clerk/nextjs";
+} from "@clerk/nextjs"
 
 import { DocumentInput } from "./documentInput"
 import { NavbarMenu } from "./navbarMenu"
-import { Avatars } from "./avatar";
-import { Inbox } from "./inbox";
+import { Avatars } from "./avatar"
+import { Inbox } from "./inbox"
 
-import { NavigationProps } from "@/lib/types";
+import { NavbarProps } from "@/lib/types"
+
+import { api } from "../../../../../convex/_generated/api"
+
+import { useMutation } from "convex/react"
+
+import { toast } from "sonner"
 
 const Navbar = ({
     data
-}: NavigationProps) => {
+}: NavbarProps) => {
+
+    const router = useRouter()
+    const mutation = useMutation(api.documents.create)
+
+    const onNewDocument = () => {
+        mutation({
+            title: "Untitled Document",
+            initialContent: ""
+        })
+            .catch(() => toast.error("Some unknown error crept in while creating your document"))
+            .then((id) => {
+                toast.success("Document created successfully")
+                router.push(`/documents/${id}`)
+            })
+    }
+
     return (
         <nav
             className="flex items-center justify-between"
@@ -39,6 +62,7 @@ const Navbar = ({
                     />
                     <NavbarMenu
                         data={data}
+                        handleNewDocument={onNewDocument}
                     />
                 </div>
             </div>

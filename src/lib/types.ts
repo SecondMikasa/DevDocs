@@ -105,6 +105,11 @@ export interface AvatarProps {
     name: string;
 }
 
-export interface NavigationProps {
-    data: Doc<"documents">
+export interface NavbarProps {
+    data: Doc<"documents">;
+}
+
+export interface NavbarMenuProps {
+    data: Doc<"documents">;
+    handleNewDocument: () => void
 }
