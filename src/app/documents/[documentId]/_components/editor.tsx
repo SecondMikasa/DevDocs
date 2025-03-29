@@ -37,7 +37,9 @@ import { LineHeightExtension } from '@/extensions/line-height'
 import ImageResize from 'tiptap-extension-resize-image'
 
 import { Ruler } from './ruler'
-import { Threads } from './threads';
+import { Threads } from './threads'
+
+import { EditorProps } from '@/lib/types'
 
 const lowlight = createLowlight(all)
 
@@ -46,10 +48,15 @@ lowlight.register('css', css)
 lowlight.register('js', js)
 lowlight.register('ts', ts)
 
-const EditorComponent = () => {
+const EditorComponent = ({
+    initialContent
+}: EditorProps) => {
     const { setEditor } = useEditorStore()
 
-    const liveblocks = useLiveblocksExtension()
+    const liveblocks = useLiveblocksExtension({
+        initialContent: initialContent,
+        offlineSupport_experimental: true
+    })
 
     const leftMargin = useStorage((root) => root.leftMargin)
     const rightMargin = useStorage((root) => root.rightMargin)
@@ -124,6 +131,7 @@ const EditorComponent = () => {
         ],
 
         immediatelyRender: false,
+
     })
 
     return (

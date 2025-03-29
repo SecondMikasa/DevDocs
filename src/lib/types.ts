@@ -61,16 +61,21 @@ export interface MarkerProps {
     onDoubleClick: () => void;
 }
 
+export interface EditorProps {
+    initialContent?: string | undefined; 
+}
+
 export interface TemplateProps {
     id: string;
     label: string;
     imageUrl: string;
+    initialContent: string;
 }
 
 export interface DocumentTableProps {
     documents: Doc<"documents">[] | undefined;
     loadMore: (numItems: number) => void;
-    status: PaginationStatus
+    status: PaginationStatus;
 }
 
 export interface DocumentRowProps {
@@ -111,5 +116,5 @@ export interface NavbarProps {
 
 export interface NavbarMenuProps {
     data: Doc<"documents">;
-    handleNewDocument: () => void
+    handleNewDocument: () => void;
 }

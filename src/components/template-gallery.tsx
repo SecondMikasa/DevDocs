@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/carousel"
 
 import { cn } from "@/lib/utils"
-import { templates } from "@/lib/utilities"
+import { templates } from "@/lib/templates"
 import { useMutation } from "convex/react"
 import { api } from "../../convex/_generated/api"
 import { toast } from "sonner"
@@ -61,8 +61,7 @@ export const TemplateGallery = () => {
                                     >
                                         <button
                                             disabled={isCreating}
-                                            // TODO: Add provision for template content to be passed
-                                            onClick={() => onTemplateClick(template.label, "")}
+                                            onClick={() => onTemplateClick(template.label, template.initialContent)}
                                             style={{
                                                 backgroundImage: `url(${template.imageUrl})`,
                                                 backgroundSize: "cover",

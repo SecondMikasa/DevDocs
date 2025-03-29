@@ -33,7 +33,9 @@ const Document = ({
                     <Toolbar />
                 </div>
                 <div className="pt-[90px] print:pt-0">
-                    <Editor />
+                    <Editor
+                        initialContent={document.initialContent}
+                    />
                 </div>
             </div>
         </Room>
