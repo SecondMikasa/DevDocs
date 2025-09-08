@@ -69,13 +69,15 @@ const Navbar = ({
             <div className="flex gap-3 items-center pl-6">
                 <Avatars />
                 <Inbox />
-                <OrganizationSwitcher
-                    afterCreateOrganizationUrl="/"
-                    afterLeaveOrganizationUrl="/"
-                    afterSelectOrganizationUrl="/"
-                    afterSelectPersonalUrl="/"
-                />
-                <UserButton />
+                <div className="hidden sm:flex gap-3 items-center">
+                    <OrganizationSwitcher
+                        afterCreateOrganizationUrl="/"
+                        afterLeaveOrganizationUrl="/"
+                        afterSelectOrganizationUrl="/"
+                        afterSelectPersonalUrl="/"
+                    />
+                    <UserButton />
+                </div>
             </div>
         </nav>
     )

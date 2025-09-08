@@ -20,11 +20,11 @@ const Home = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#fafbfd]">
-      <div className="fixed top-0 left-0 right-0 z-10 h-16 p-4">
+      <div className="fixed top-0 left-0 right-0 z-10 bg-[#fafbfd] shadow-sm">
         <Navbar />
       </div>
-      {/* Due to navbar behaving as a fixed component it gets hidden behind the navbar hence we added mt-16 to prevent that behaviour*/}
-      <div className="mt-20">
+      {/* Adjust top margin for mobile (two-row navbar ~116px) vs desktop (single-row navbar ~80px) */}
+      <div className="mt-[120px] sm:mt-20">
         <TemplateGallery />
         <DocumentsTable
           documents={results}

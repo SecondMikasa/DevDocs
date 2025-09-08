@@ -21,14 +21,15 @@ export const DocumentMenu = ({
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-full"
-            >
-                <MoreVertical
-                    className="size-4"
-                />
-            </Button>
+                    variant="ghost"
+                    size="icon"
+                    className="rounded-full"
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <MoreVertical
+                        className="size-4"
+                    />
+                </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
                 <RemoveDialog
@@ -59,7 +60,10 @@ export const DocumentMenu = ({
                     </DropdownMenuItem>
                 </RenameDialog>
                 <DropdownMenuItem
-                    onClick={() => onNewTab(documentId)}
+                    onClick={(e) => {
+                        e.stopPropagation()
+                        onNewTab(documentId)
+                    }}
                 >
                     <ExternalLinkIcon
                         className="size-4 mr-2"
