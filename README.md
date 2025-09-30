@@ -1,4 +1,4 @@
-# 📌 DevDraws  
+# 📌 DevDocs  
 
 **DevDocs** is a real-time, collaborative web based document editor that enables users to create, edit, and share text content seamlessly. Whether you need to create a resume, write a letter, jot down notes, or collaborate remotely over a document, DevDocs provides an intuitive and interactive experience.  
 
